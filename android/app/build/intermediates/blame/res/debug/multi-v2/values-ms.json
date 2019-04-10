@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Work\\duy\\sepm-master\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-ms\\values-ms.xml",
+            "outputFile": "C:\\Work\\duy\\SymptomsChecker\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-ms\\values-ms.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Hoai\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\62448f8e1cadd0b5ff05b252dce614ad\\res\\values-ms\\values-ms.xml",

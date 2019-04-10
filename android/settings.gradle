@@ -1,0 +1,3 @@
+rootProject.name = 'SymptomsChecker'
+
+include ':app'

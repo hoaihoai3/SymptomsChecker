@@ -1,12 +1,12 @@
 import React from 'react';
-import { Scene, Router, Actions } from 'react-native-router-flux';
-import LoginForm from './components/LoginForm';
-import SignUpForm from './components/SignUpForm';
+import { Scene, Router } from 'react-native-router-flux';
+import LoginForm from './components/Auth/LoginForm';
+import SignUpForm from './components/Auth/SignUpForm';
 import HomePage from './components/HomePage';
-import ProfilePage from './components/ProfilePage';
+import ProfilePage from './components/Profile/ProfilePage';
 import HistoryPage from './components/HistoryPage';
 import SettingsPage from './components/SettingsPage';
-import WelcomePage from './components/WelcomePage';
+import WelcomePage from './components/Auth/WelcomePage';
 
 const RouterComponent = () => {
 

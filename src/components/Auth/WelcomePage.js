@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import { View, Text, Navigator, NativeModules, Image, TouchableOpacity } from 'react-native';
-import { Button, CardSection, Card } from './common';
-import { emailChanged, passwordChanged, goToLogIn, goToSignUp } from '../actions';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { Button, CardSection, Card } from '../common';
+import { emailChanged, passwordChanged, goToLogIn, goToSignUp } from '../../actions';
 
 class WelcomePage extends Component {
 
@@ -22,12 +22,12 @@ class WelcomePage extends Component {
         <View style={styles.viewStyle}>
           <Image
             style={styles.imageStyle}
-            source={require('../img/blood-analysis.png')}
+            source={require('../../img/blood-analysis.png')}
           />
         </View>
 
         <View>
-          <Text style={styles.textStyle}>Symptom Checker</Text>
+          <Text style={styles.titleStyle}>Symptom Checker</Text>
         </View>
 
         <View style={styles.gapStyle} />
@@ -73,11 +73,12 @@ const styles = {
   gapStyle: {
     marginBottom: 50
   },
-  textStyle: {
+  titleStyle: {
     fontSize: 30,
     fontWeight: 'bold',
     letterSpacing: 1,
-    color: '#229AD5'
+    color: '#229AD5',
+    // fontFamily: 'sans-serif'
   },
   buttonContainerStyle: {
     marginTop: 5,

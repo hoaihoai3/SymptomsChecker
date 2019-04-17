@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, Image } from 'react-native';
+import { Text, View, Image } from 'react-native';
 import { connect } from 'react-redux';
-import { Card, CardSection, Button, Input, Spinner } from './common';
-import { emailChanged, passwordChanged, loginUser } from '../actions';
+import { Card, CardSection, Button, Input, Spinner } from '../common';
+import { emailChanged, passwordChanged, confirmPasswordChanged, signUpUser } from '../../actions';
 
-class LoginForm extends Component {
-  componentWillUnmount(state) {
-    this.setState({ ...state, email: '', password: '' });
-  }
+class SignUpForm extends Component {
+
+  state = { confirmError: '' };
 
   onEmailChange(text) {
     this.props.emailChanged(text);
@@ -17,10 +16,16 @@ class LoginForm extends Component {
     this.props.passwordChanged(text);
   }
 
-  onButtonPress() {
-    const { email, password } = this.props;
+  onConfirmPasswordChange(text) {
+    this.props.confirmPasswordChanged(text);
+  }
 
-    this.props.loginUser({ email, password });
+  onButtonPress() {
+    const { email, password, confirmPassword } = this.props;
+
+    this.props.signUpUser({ email, password, confirmPassword });
+    console.log(password);
+    console.log(confirmPassword);
   }
 
   renderButton() {
@@ -29,7 +34,7 @@ class LoginForm extends Component {
     }
     return (
       <Button onPress={this.onButtonPress.bind(this)}>
-        Login
+        Sign Up
       </Button>
     );
   }
@@ -49,24 +54,24 @@ class LoginForm extends Component {
   render() {
     return (
       <View style={styles.containerStyle}>
-        <View style={styles.viewStyle}>
-          <Image
-            style={styles.imageStyle}
-            source={require('../img/blood-analysis.png')}
-          />
-        </View>
+      <View style={styles.viewStyle}>
+        <Image
+          style={styles.imageStyle}
+          source={require('../../img/blood-analysis.png')}
+        />
+      </View>
 
-        <View>
-          <Text style={styles.titleStyle}>Log In</Text>
-        </View>
+      <View>
+        <Text style={styles.titleStyle}>Sign Up</Text>
+      </View>
 
-        <View style={styles.gapStyle} />
+      <View style={styles.gapStyle} />
 
         <View>
             <CardSection>
               <Input
-                autoCapitalize="none"
                 label='Email'
+                autoCapitalize="none"
                 placeholder='user@gmail.com'
                 onChangeText={this.onEmailChange.bind(this)}
                 value={this.props.email}
@@ -84,14 +89,23 @@ class LoginForm extends Component {
               />
             </CardSection>
 
-            {this.renderError()}
+            <CardSection>
+              <Input
+                secureTextEntry
+                autoCapitalize="none"
+                label='Confirm'
+                placeholder='password'
+                onChangeText={this.onConfirmPasswordChange.bind(this)}
+                value={this.state.confirmPassword}
+              />
+            </CardSection>
 
+            {this.renderError()}
             <CardSection>
               {this.renderButton()}
             </CardSection>
         </View>
       </View>
-
 
     );
   }
@@ -104,7 +118,7 @@ const styles = {
     width: 150,
     height: 150,
     padding: 5,
-    backgroundColor: '#E8F8FF'
+    backgroundColor: '#E8F8FF',
   },
   imageStyle: {
     flex: 1,
@@ -139,9 +153,14 @@ const styles = {
 };
 
 const mapStateToProps = ({ auth }) => {
-  const { email, password, error, loading } = auth;
+  const { email, password, error, loading, confirmPassword } = auth;
 
-  return { email, password, error, loading };
+  return { email, password, error, loading, confirmPassword };
 };
 
-export default connect(mapStateToProps, { emailChanged, passwordChanged, loginUser })(LoginForm);
+export default connect(mapStateToProps, {
+  emailChanged,
+  passwordChanged,
+  confirmPasswordChanged,
+  signUpUser
+})(SignUpForm);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { View, Text, Navigator, NativeModules, Image, TouchableOpacity } from 'react-native';
-import { Button, CardSection, Card } from './common';
+import { Actions } from 'react-native-router-flux';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 
 class Homepage extends Component {
 
@@ -29,6 +29,31 @@ class Homepage extends Component {
             </Icon>
           </TouchableOpacity>
         </View>
+
+        <View style={styles.buttonContainerStyle}>
+          <TouchableOpacity style={styles.buttonStyle} onPress={Actions.history}>
+            <Text style={styles.iconStyle}>
+              Go To Search History
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.buttonContainerStyle}>
+          <TouchableOpacity style={styles.buttonStyle} onPress={Actions.profile}>
+            <Text style={styles.iconStyle}>
+              Go To Medical Profile
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.buttonContainerStyle}>
+          <TouchableOpacity style={styles.buttonStyle} onPress={Actions.settings}>
+            <Text style={styles.iconStyle}>
+              Go To Settings
+            </Text>
+          </TouchableOpacity>
+        </View>
+
       </View>
 
     );
@@ -63,11 +88,11 @@ const styles = {
     color: '#229AD5'
   },
   buttonContainerStyle: {
-    marginTop: 5,
+    marginTop: 50,
     padding: 10,
     width: 300,
     height: 50,
-    borderWidth: 2,
+    borderWidth: 1,
     borderRadius: 5,
     borderColor: '#229AD5',
     alignItems: 'center',

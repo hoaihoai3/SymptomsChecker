@@ -116,14 +116,6 @@ async function countData(inputArray,db){
   return scores
 }
 
-// async function testFunction(inputArray, db, key){
-//   const results = [one, two] = await Promise.all([countData(inputArray,db), autoSuggestion(db, key)])
-//   return results
-// }
-//
-// var alll = testFunction(inputArray, db, 'cough')
-// console.log(alll)
-
 const result = countData(inputArray, db)
 console.log(result)
 

@@ -25,7 +25,6 @@ class App extends Component {
         <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))}>
           <Router />
         </Provider>
-
       );
     }
   }

@@ -208,7 +208,7 @@ const styles = {
   },
   hr: {
     height: 1,
-    backgroundColor: "gray"
+    backgroundColor: "blue"
   },
   listItemCont: {
     flexDirection: "row",

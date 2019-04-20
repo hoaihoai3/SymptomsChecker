@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, TouchableOpacity, FlatList, View, Button } from 'react-native';
+import { Header, Spinner }  from './common';
 import Autocomplete from 'react-native-autocomplete-input';
 import elasticlunr from '../libraries/elasticlunr';
 
@@ -131,7 +132,7 @@ var selected = []
 
 
 class SymptomsCheck extends Component {
-  state = { symptoms: [], query: ''}
+  state = { symptoms: [], query: '', loading: false, results: []}
 
   removeItem(index) {
     this.setState({
@@ -141,34 +142,41 @@ class SymptomsCheck extends Component {
     console.log(selected)
   }
 
-  render() {
-    const query = this.state.query;
-    const data = autoSuggestion(db, query)
-    return (
-      <View style={{flex: 1, flexDirection: 'column', alignItems: 'stretch', justifyContent: 'flex-start'}}>
-        <Autocomplete
-        containerStyle={{}}
-        listStyle={{width:"100%", marginLeft: 0}}
-        listContainerStyle={{}}
-        data={data}
-        defaultValue={query}
-        onChangeText={text => this.setState({ query: text })}
+async queryItems(inputArray){
+    this.setState({loading: true, symptoms: []})
+    const results = await countData(inputArray, db)
+    this.setState({loading: false, results: results})
+  }
 
-        renderItem={({ item, index }) => (
-          <TouchableOpacity onPress={() => this.setState(state => {
-            const symptoms = [...state.symptoms, item];
-            console.log(symptoms)
-            selected = symptoms;
-            return {
-              symptoms,
-              query: ''
-            }
-          })}>
-            <Text>{item}</Text>
-          </TouchableOpacity>
-        )}
+  renderButton(){
+    if (this.state.loading === true){
+      return <Spinner styles={{}} />;
+    }
+    return(
+      <Button title="Search" onPress={() => this.queryItems(this.state.symptoms, db)}></Button>
+    )
+  }
+
+  renderFlatList(){
+    if (!_.isEmpty(this.state.results)) {
+      return (
+        <FlatList
+        style={styles.list}
+        data={this.state.results}
+        renderItem={({ item, index }) =>
+        <View>
+            <View style={styles.listItemCont}>
+              <Text style={styles.listItem}>
+               {item.disease + ":  " + item.score}
+              </Text>
+            </View>
+            <View style={styles.hr} />
+          </View>}
         keyExtractor={(item, index) => index.toString()}
-      />
+        />
+      )
+    }
+    return (
       <FlatList
       style={styles.list}
       data={this.state.symptoms}
@@ -184,7 +192,51 @@ class SymptomsCheck extends Component {
         </View>}
       keyExtractor={(item, index) => index.toString()}
       />
+    )
+  }
+
+  render() {
+    const query = this.state.query;
+    const data = autoSuggestion(db, query)
+    return (
+      <View style={styles.container}>
+        <Header headerText='Check Symptoms'/>
+        <View style={{flex: 1}}>
+          <Autocomplete
+          placeholder='Enter a symptom you are having'
+          autoCorrect= {false}
+          autoCapitalize="none"
+          containerStyle={styles.autoCompleteContainer}
+          listStyle={styles.autoCompleteList}
+          listContainerStyle={styles.autoCompleteListContainer}
+          inputContainerStyle={styles.autoCompleteInputContainer}
+          data={data}
+          defaultValue={query}
+          onChangeText={text => this.setState({ query: text })}
+
+          renderItem={({ item, index }) => (
+            <TouchableOpacity onPress={() => this.setState(state => {
+              const symptoms = [...state.symptoms, item];
+              console.log(symptoms)
+              selected = symptoms;
+              return {
+                symptoms,
+                query: ''
+              }
+            })}>
+              <Text>{item}</Text>
+            </TouchableOpacity>
+          )}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      </View>
+      <View styles={{flex: 3, paddingBottom: 20}}>
+        {this.renderFlatList()}
   </View>
+  <View style={{height:"5%"}}>
+    {this.renderButton()}
+  </View>
+</View>
   );
   }
 }
@@ -192,19 +244,32 @@ class SymptomsCheck extends Component {
 const styles = {
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: "flex-start",
+    alignItems: "stretch",
     backgroundColor: "#F5FCFF",
-    padding: 1,
-    paddingTop: 20
+    padding: 1
+  },
+  autoCompleteContainer:{
+    flex: 1
+  },
+  autoCompleteList: {
+    width:"100%",
+    marginLeft: 0
+  },
+  autoCompleteListContainer: {
+    margin: 0
+  },
+  autoCompleteInputContainer: {
   },
   list: {
-    width: "100%"
+    width: "100%",
+    marginTop: 0
   },
   listItem: {
     paddingTop: 2,
     paddingBottom: 2,
     fontSize: 18
+
   },
   hr: {
     height: 1,

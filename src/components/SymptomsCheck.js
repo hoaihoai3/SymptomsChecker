@@ -6,6 +6,8 @@ import elasticlunr from '../libraries/elasticlunr';
 
 const firebase = require('firebase');
 
+var globalResults = []
+
 if (!firebase.apps.length) { // if firebase is not loaded
   firebase.initializeApp({
   apiKey: 'AIzaSyAsoGSE6jisMEVawlpGCsmrd93gHCgOKmI',
@@ -50,17 +52,6 @@ async function getAllSymptoms(db) {
 
 getAllSymptoms(db);
 
-// async function autoSuggestion(db, key) {
-//   var data = [];
-//   console.log('getting all symptoms')
-//   await getAllSymptoms(db)
-//   console.log('getting all symptoms done')
-//   var query = index.search(key, {expand: true });
-//   for (i = 0; i < query.length; i++){
-//     data.push(query[i].doc.symptoms)
-//   }
-//   console.log(data);
-// }
 
 function autoSuggestion(db, key) {
   var data = [];
@@ -79,15 +70,16 @@ function autoSuggestion(db, key) {
 async function query(input, db) {
    var results = []
     for (i = 0; i < input.length; i++){
-            await db.collection('Disease').where('Symptoms', 'array-contains', input[i])
+            await db.collection('Disease').where('symptoms', 'array-contains', input[i])
             .get()
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
                     // doc.data() is never undefined for query doc snapshots
                     // console.log(doc.id)
                     var object = doc.data()
-                    object.id = doc.id
+                    object.id = doc.data().name
                     results.push(object)
+                    console.log(object)
                 });
             })
             .catch((error) => {
@@ -102,7 +94,8 @@ async function countData(inputArray,db){
   occurences = []
   scores = []
   var data = await query(inputArray,db)
-  // console.log(data)
+  globalResults = data
+  console.log(data)
   data.forEach((disease) => {
     tempArray.push(disease.id)
   })
@@ -113,26 +106,30 @@ async function countData(inputArray,db){
     // console.log(occurences[key])
     for (i = 0; i < data.length; i++){
       if (data[i].id === key){
-        // scores.push('Disease: ',key,' ' +  occurences[key]/data[i].Symptoms.length * 100)
         scores.push({
         disease: key,
-        score: Math.round(occurences[key]/data[i].Symptoms.length * 100) + '%'
-        })
+        score: Math.round(occurences[key]/data[i].symptoms.length * 100) + '%',
+        scoreInNumber: Math.round(occurences[key]/data[i].symptoms.length * 100)
+      })
         break;
       }
     }
     count++
   }
+  var sorted = scores.slice(0)
+  sorted.sort(function(a,b) {
+    // return a.scoreInNumber - b.scoreInNumber
+    return b.scoreInNumber - a.scoreInNumber
+  })
 
-  return scores
+  return sorted
 }
 
-var inputArray = ['acid reflux', 'vomiting', 'nausea', 'weight loss', 'runny nose', 'sleepiness', 'hunger', 'loss of appetite', 'dizziness', 'chest pain'];
 var selected = []
 
 
 class SymptomsCheck extends Component {
-  state = { symptoms: [], query: '', loading: false, results: []}
+  state = { symptoms: [], query: '', loading: false, results: [], selectedResult: ''}
 
   removeItem(index) {
     this.setState({
@@ -147,6 +144,7 @@ async queryItems(inputArray){
     const results = await countData(inputArray, db)
     this.setState({loading: false, results: results})
   }
+
 
   renderButton(){
     if (this.state.loading === true){
@@ -169,6 +167,7 @@ async queryItems(inputArray){
               <Text style={styles.listItem}>
                {item.disease + ":  " + item.score}
               </Text>
+              <Button title="more info" onPress={() => this.setState({selectedResult: item.disease})} />
             </View>
             <View style={styles.hr} />
           </View>}

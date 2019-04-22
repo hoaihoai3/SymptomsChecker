@@ -29,9 +29,9 @@ const index = elasticlunr(function () {
 });
 
 
-async function getAllSymptoms(db) {
+ function getAllSymptoms(db) {
   const docRef = db.collection('Key').doc('Auto Suggestion');
-  await docRef.get().then((doc) => {  //get all symptoms for auto suggestion
+   docRef.get().then((doc) => {  //get all symptoms for auto suggestion
     if (doc.exists) {
           // console.log('Document data:', doc.data());
           for (i = 0; i < doc.data().Symptoms.length; i++){
@@ -127,6 +127,7 @@ async function countData(inputArray,db){
 
 var selected = []
 
+db.collection('History').doc("6zedIXLc2vhPclUEIrIO0JHvnlG2").collection("historyList").get().then((querySnapshot) => querySnapshot.forEach((doc) => console.log(doc.data())))
 
 class SymptomsCheck extends Component {
   state = { symptoms: [], query: '', loading: false, results: [], selectedResult: ''}
@@ -158,6 +159,8 @@ async queryItems(inputArray){
   renderFlatList(){
     if (!_.isEmpty(this.state.results)) {
       return (
+        <View>
+        <Text> Results </Text>
         <FlatList
         style={styles.list}
         data={this.state.results}
@@ -173,6 +176,7 @@ async queryItems(inputArray){
           </View>}
         keyExtractor={(item, index) => index.toString()}
         />
+        </View>
       )
     }
     return (

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>logFormatVersion</key>
+	<integer>9</integer>
+	<key>logs</key>
+	<dict>
+		<key>9B943886-F3AA-439E-B145-50A2DD7797A6</key>
+		<dict>
+			<key>className</key>
+			<string>IDECommandLineBuildLog</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>9B943886-F3AA-439E-B145-50A2DD7797A6.xcactivitylog</string>
+			<key>highLevelStatus</key>
+			<string>W</string>
+			<key>schemeIdentifier-containerName</key>
+			<string>SymptomsChecker project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>SymptomsChecker</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Building project SymptomsChecker with scheme SymptomsChecker and configuration Debug</string>
+			<key>timeStartedRecording</key>
+			<real>577603223.59420395</real>
+			<key>timeStoppedRecording</key>
+			<real>577603226.45743895</real>
+			<key>title</key>
+			<string>Building project SymptomsChecker with scheme SymptomsChecker and configuration Debug</string>
+			<key>uniqueIdentifier</key>
+			<string>9B943886-F3AA-439E-B145-50A2DD7797A6</string>
+		</dict>
+		<key>B675DAD2-C7E5-43AA-868B-4FE1700D6281</key>
+		<dict>
+			<key>className</key>
+			<string>IDECommandLineBuildLog</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>B675DAD2-C7E5-43AA-868B-4FE1700D6281.xcactivitylog</string>
+			<key>highLevelStatus</key>
+			<string>W</string>
+			<key>schemeIdentifier-containerName</key>
+			<string>SymptomsChecker project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>SymptomsChecker</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Building project SymptomsChecker with scheme SymptomsChecker and configuration Debug</string>
+			<key>timeStartedRecording</key>
+			<real>577603881.96294498</real>
+			<key>timeStoppedRecording</key>
+			<real>577603883.51666105</real>
+			<key>title</key>
+			<string>Building project SymptomsChecker with scheme SymptomsChecker and configuration Debug</string>
+			<key>uniqueIdentifier</key>
+			<string>B675DAD2-C7E5-43AA-868B-4FE1700D6281</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

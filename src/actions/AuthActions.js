@@ -10,7 +10,10 @@ import { EMAIL_CHANGED,
          SIGNUP_FAIL,
          UNMATCHED_PASSWORD,
          GO_TO_LOGIN,
-         GO_TO_SIGNUP
+         GO_TO_SIGNUP,
+         LOG_OUT_USER,
+         LOG_OUT_USER_SUCCESS,
+         LOG_OUT_USER_FAIL
        } from './types';
 
 export const emailChanged = (text) => {
@@ -75,7 +78,6 @@ const logInUserSuccess = (dispatch, user) => {
     type: LOGIN_USER_SUCCESS,
     payload: user
   });
-
   Actions.main();
 };
 
@@ -94,5 +96,28 @@ export const signUpUser = ({ email, password, confirmPassword }) => {
   }
   return (dispatch) => {
     dispatch({ type: UNMATCHED_PASSWORD });
+  };
+};
+
+const logOutUserFail = (dispatch) => {
+  dispatch({
+    type: LOG_OUT_USER_FAIL
+  });
+};
+
+const logOutUserSuccess = (dispatch) => {
+  dispatch({
+    type: LOG_OUT_USER_SUCCESS,
+  });
+  Actions.auth();
+};
+
+export const logOutUser = (user) => {
+  return (dispatch) => {
+    if (user) {
+      firebase.auth().signOut()
+      .then(() => logOutUserSuccess(dispatch))
+      .catch(() => logOutUserFail(dispatch));
+    }
   };
 };

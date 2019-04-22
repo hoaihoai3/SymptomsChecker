@@ -19,6 +19,7 @@ const Confirm = ({ children, visible, onAccept, onDecline }) => {
 
         <CardSection>
           <Button onPress={onAccept}>Yes</Button>
+          <View style={{ borderLeftWidth: 1, borderColor: '#007aff' }} />
           <Button onPress={onDecline}>No</Button>
         </CardSection>
       </View>

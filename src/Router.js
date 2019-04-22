@@ -1,12 +1,17 @@
 import React from 'react';
-import { Scene, Router } from 'react-native-router-flux';
+import { Scene, Router, Actions } from 'react-native-router-flux';
 import LoginForm from './components/Auth/LoginForm';
 import SignUpForm from './components/Auth/SignUpForm';
 import HomePage from './components/HomePage';
-import ProfilePage from './components/Profile/ProfilePage';
 import HistoryPage from './components/HistoryPage';
-import SettingsPage from './components/SettingsPage';
+import SettingsPage from './components/Settings/SettingsPage';
 import WelcomePage from './components/Auth/WelcomePage';
+import ProfilePage from './components/Profile/ProfilePage';
+import EditProfile from './components/Profile/EditProfile';
+import AboutUs from './components/Settings/AboutUs';
+import UseTerms from './components/Settings/UseTerms';
+import AccountPage from './components/Settings/AccountPage';
+import SymptomsCheck from './components/SymptomsCheck';
 
 const RouterComponent = () => {
 
@@ -24,9 +29,20 @@ const RouterComponent = () => {
         </Scene>
         <Scene key="main">
           <Scene key="home" component={HomePage} initial />
-          <Scene key="profile" component={ProfilePage} title="Medical Profile" />
-          <Scene key="settings" component={SettingsPage} title="Settings" />
+          <Scene
+            rightTitle="Edit"
+            onRight={() => { Actions.editProfile(); }}
+            key="profile"
+            component={ProfilePage}
+            title="Medical Profile"
+          />
+          <Scene key="editProfile" component={EditProfile} title="Medical Profile" />
           <Scene key="history" component={HistoryPage} title="Search History" />
+          <Scene key="settings" component={SettingsPage} title="Settings" />
+          <Scene key="account" component={AccountPage} title="Account Settings" />
+          <Scene key="about" component={AboutUs} title="About Us" />
+          <Scene key="useTerms" component={UseTerms} title="Terms of Use" />
+          <Scene key="check" component={SymptomsCheck} title="Symptom Checker" />
         </Scene>
       </Scene>
     </Router>

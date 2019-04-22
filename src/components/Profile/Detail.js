@@ -1,17 +1,20 @@
 import React from 'react';
 import { Text, View } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-const ProfileDetail = ({ title, item, unit }) => {
+const ProfileDetail = ({ title, item, unit, iconName, onIconPress, id }) => {
   const {
     itemStyle,
     itemTitleStyle,
-    itemContainerStyle } = styles;
+    itemContainerStyle,
+   } = styles;
 
   return (
-    <View style={itemContainerStyle}>
+    <View style={itemContainerStyle} id={id}>
       <Text>
         <Text style={itemTitleStyle}>{title} </Text>
         <Text style={itemStyle}>{item} {unit}</Text>
+        <Icon name={iconName} onPress={onIconPress} />
       </Text>
     </View>
   );
@@ -24,12 +27,8 @@ const styles = {
     height: 45,
     paddingLeft: 20,
     paddingRight: 20,
-    backgroundColor: '#E8F8FF',
-    // borderWidth: 1,
-    // borderTopWidth: 0,
-    // borderBottomWidth: 0,
-    borderRadius: 3
-    // borderColor: '#58595A'
+    backgroundColor: '#FFF',
+    borderRadius: 5
   },
   itemTitleStyle: {
     fontSize: 17,
@@ -38,6 +37,6 @@ const styles = {
   itemStyle: {
     fontSize: 16,
     color: '#58595A'
-  }
+  },
 };
 export default ProfileDetail;

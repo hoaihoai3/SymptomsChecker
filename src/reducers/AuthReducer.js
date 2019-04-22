@@ -8,7 +8,9 @@ import { EMAIL_CHANGED,
          SIGNUP_FAIL,
          UNMATCHED_PASSWORD,
          GO_TO_LOGIN,
-         GO_TO_SIGNUP
+         GO_TO_SIGNUP,
+         LOG_OUT_USER_SUCCESS,
+         LOG_OUT_USER_FAIL
  } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -45,6 +47,10 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, ...INITIAL_STATE };
     case GO_TO_SIGNUP:
       return { ...state, ...INITIAL_STATE };
+    case LOG_OUT_USER_SUCCESS:
+      return { ...state, ...INITIAL_STATE };
+    case LOG_OUT_USER_FAIL:
+      return { ...state, error: 'Failed to Log Out' };
     default:
       return state;
   }

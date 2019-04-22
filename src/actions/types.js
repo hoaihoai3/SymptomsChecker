@@ -9,6 +9,13 @@ export const SIGNUP_FAIL = 'signup_fail';
 export const UNMATCHED_PASSWORD = 'unmatched_password';
 export const GO_TO_LOGIN = 'goToLogIn';
 export const GO_TO_SIGNUP = 'goToSignUp';
+export const LOG_OUT_USER = 'LOG_OUT_USER';
+export const LOG_OUT_USER_SUCCESS = 'LOG_OUT_USER_SUCCESS';
+export const LOG_OUT_USER_FAIL = 'LOG_OUT_USER_FAIL';
+
 
 export const PROFILE_FETCH_SUCCESS = 'PROFILE_FETCH_SUCCESS';
-export const PROFILE_EDIT = 'PROFILE_EDIT';
+export const PROFILE_UPDATE = 'PROFILE_UPDATE';
+export const PROFILE_SAVE_SUCCESS = 'PROFILE_SAVE_SUCCESS';
+
+export const HISTORY_FETCH_SUCCESS = 'HISTORY_FETCH_SUCCESS';

@@ -1,0 +1,26 @@
+dependencies: \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/third-party/folly-2018.10.22.00/folly/container/detail/F14Table.cpp \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/third-party/folly-2018.10.22.00/folly/container/detail/F14Table.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/third-party/folly-2018.10.22.00/folly/Bits.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/third-party/folly-2018.10.22.00/folly/lang/Bits.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/third-party/folly-2018.10.22.00/folly/ConstexprMath.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/third-party/folly-2018.10.22.00/folly/Portability.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/third-party/folly-2018.10.22.00/folly/portability/Config.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/third-party/folly-2018.10.22.00/folly/CPortability.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/third-party/folly-2018.10.22.00/folly/Utility.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/third-party/folly-2018.10.22.00/folly/Traits.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/third-party/folly-2018.10.22.00/folly/lang/Assume.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/third-party/folly-2018.10.22.00/folly/portability/Builtins.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/third-party/folly-2018.10.22.00/folly/Likely.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/third-party/folly-2018.10.22.00/folly/ScopeGuard.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/third-party/folly-2018.10.22.00/folly/Preprocessor.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/third-party/folly-2018.10.22.00/folly/lang/UncaughtExceptions.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/third-party/folly-2018.10.22.00/folly/functional/ApplyTuple.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/third-party/folly-2018.10.22.00/folly/functional/Invoke.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/third-party/folly-2018.10.22.00/folly/lang/Align.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/third-party/folly-2018.10.22.00/folly/lang/Exception.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/third-party/folly-2018.10.22.00/folly/CppAttributes.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/third-party/folly-2018.10.22.00/folly/lang/Launder.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/third-party/folly-2018.10.22.00/folly/lang/SafeAssert.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/third-party/folly-2018.10.22.00/folly/container/detail/F14Defaults.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/third-party/folly-2018.10.22.00/folly/container/detail/F14IntrinsicsAvailability.h

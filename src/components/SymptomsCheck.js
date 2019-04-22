@@ -1,28 +1,29 @@
 import React, { Component } from 'react';
 import { Text, TouchableOpacity, FlatList, View, Button } from 'react-native';
+import Firebase from './Firebase';
 import { Header, Spinner }  from './common';
 import Autocomplete from 'react-native-autocomplete-input';
 import elasticlunr from '../libraries/elasticlunr';
 
-const firebase = require('firebase');
+// const firebase = require('firebase');
 
 var globalResults = []
 
-if (!firebase.apps.length) { // if firebase is not loaded
-  firebase.initializeApp({
-  apiKey: 'AIzaSyAsoGSE6jisMEVawlpGCsmrd93gHCgOKmI',
-  authDomain: 'symptoms-checker-a898b.firebaseapp.com',
-  databaseURL: 'https://symptoms-checker-a898b.firebaseio.com',
-  projectId: 'symptoms-checker-a898b',
-  storageBucket: 'symptoms-checker-a898b.appspot.com',
-  messagingSenderId: '183194827166'
-  });
-}
+// if (!firebase.apps.length) { // if firebase is not loaded
+//   firebase.initializeApp({
+//   apiKey: 'AIzaSyAsoGSE6jisMEVawlpGCsmrd93gHCgOKmI',
+//   authDomain: 'symptoms-checker-a898b.firebaseapp.com',
+//   databaseURL: 'https://symptoms-checker-a898b.firebaseio.com',
+//   projectId: 'symptoms-checker-a898b',
+//   storageBucket: 'symptoms-checker-a898b.appspot.com',
+//   messagingSenderId: '183194827166'
+//   });
+// }
 
 const _ = require('underscore');
 require('firebase/firestore');
 
-const db = firebase.firestore();
+const db = Firebase.firestore();
 
 const index = elasticlunr(function () {
   this.addField('symptoms')

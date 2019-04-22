@@ -67,43 +67,40 @@ class SignUpForm extends Component {
 
       <View style={styles.gapStyle} />
 
-        <View>
-            <CardSection>
-              <Input
-                label='Email'
-                autoCapitalize="none"
-                placeholder='user@gmail.com'
-                onChangeText={this.onEmailChange.bind(this)}
-                value={this.props.email}
-              />
-            </CardSection>
+      <View style={{ paddingLeft: 15, paddingRight: 15 }}>
+          <CardSection>
+            <Input
+              autoCapitalize="none"
+              placeholder='Email'
+              onChangeText={this.onEmailChange.bind(this)}
+              value={this.props.email}
+            />
+          </CardSection>
 
-            <CardSection>
-              <Input
-                secureTextEntry
-                autoCapitalize="none"
-                label='Password'
-                placeholder='password'
-                onChangeText={this.onPasswordChange.bind(this)}
-                value={this.props.password}
-              />
-            </CardSection>
+          <CardSection>
+            <Input
+              secureTextEntry
+              autoCapitalize="none"
+              placeholder='Password'
+              onChangeText={this.onPasswordChange.bind(this)}
+              value={this.props.password}
+            />
+          </CardSection>
 
-            <CardSection>
-              <Input
-                secureTextEntry
-                autoCapitalize="none"
-                label='Confirm'
-                placeholder='password'
-                onChangeText={this.onConfirmPasswordChange.bind(this)}
-                value={this.state.confirmPassword}
-              />
-            </CardSection>
+          <CardSection>
+            <Input
+              secureTextEntry
+              autoCapitalize="none"
+              placeholder='Confirm Password'
+              onChangeText={this.onConfirmPasswordChange.bind(this)}
+              value={this.state.confirmPassword}
+            />
+          </CardSection>
 
-            {this.renderError()}
-            <CardSection>
-              {this.renderButton()}
-            </CardSection>
+          {this.renderError()}
+          <CardSection>
+            {this.renderButton()}
+          </CardSection>
         </View>
       </View>
 
@@ -134,7 +131,6 @@ const styles = {
     alignSelf: 'center',
     fontSize: 30,
     fontWeight: 'bold',
-    letterSpacing: 1,
     color: '#229AD5'
   },
   containerStyle: {

@@ -1,0 +1,32 @@
+dependencies: \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/React/Views/RCTModalHostView.m \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/React/Views/RCTModalHostView.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/React/Base/RCTInvalidating.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/React/Views/RCTModalHostViewManager.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/React/Views/RCTViewManager.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/React/Base/RCTBridgeModule.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/React/Base/RCTDefines.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/React/Base/RCTConvert.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/React/Views/RCTAnimationType.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/React/Views/RCTBorderStyle.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/React/Base/RCTLog.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/React/Base/RCTAssert.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/React/Base/RCTUtils.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/React/Views/RCTPointerEvents.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/React/Views/RCTTextDecorationLineType.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/ios/build/SymptomsChecker/Build/Products/Debug-iphonesimulator/include/yoga/Yoga.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/ios/build/SymptomsChecker/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/ios/build/SymptomsChecker/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/ios/build/SymptomsChecker/Build/Products/Debug-iphonesimulator/include/yoga/YGValue.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/React/Base/RCTEventDispatcher.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/React/Base/RCTBridge.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/React/Base/RCTBridgeDelegate.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/React/Base/RCTJavaScriptLoader.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/React/Base/RCTFrameUpdate.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/React/Views/UIView+React.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/React/Views/RCTComponent.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/React/Views/RCTView.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/React/Views/RCTModalHostViewController.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/React/Base/RCTTouchHandler.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/React/Modules/RCTUIManager.h \
+  /Users/Duy/Documents/GitHub/SymptomsChecker/node_modules/react-native/React/Base/RCTRootView.h

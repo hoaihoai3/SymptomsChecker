@@ -62,12 +62,11 @@ class LoginForm extends Component {
 
         <View style={styles.gapStyle} />
 
-        <View>
+        <View style={{ paddingLeft: 15, paddingRight: 15 }}>
             <CardSection>
               <Input
                 autoCapitalize="none"
-                label='Email'
-                placeholder='user@gmail.com'
+                placeholder='Email'
                 onChangeText={this.onEmailChange.bind(this)}
                 value={this.props.email}
               />
@@ -77,8 +76,7 @@ class LoginForm extends Component {
               <Input
                 secureTextEntry
                 autoCapitalize="none"
-                label='Password'
-                placeholder='password'
+                placeholder='Password'
                 onChangeText={this.onPasswordChange.bind(this)}
                 value={this.props.password}
               />
@@ -120,7 +118,6 @@ const styles = {
     alignSelf: 'center',
     fontSize: 30,
     fontWeight: 'bold',
-    letterSpacing: 1,
     color: '#229AD5'
   },
   containerStyle: {

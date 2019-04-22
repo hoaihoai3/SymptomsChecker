@@ -1,9 +1,22 @@
 import React, { Component } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
+import firebase from 'firebase';
+import 'firebase/firestore';
+import { profileFetch } from '../actions';
+
 
 class Homepage extends Component {
+
+  componentWillMount() {
+    this.props.profileFetch();
+  }
+
+  componentDidMount() {
+
+  }
 
   onSearch() {
     console.log('Searching symptoms');
@@ -11,7 +24,6 @@ class Homepage extends Component {
 
   render() {
     return (
-
       <View style={styles.screenStyle}>
         <View style={styles.viewStyle}>
           <Image
@@ -19,11 +31,17 @@ class Homepage extends Component {
             source={require('../img/blood-analysis.png')}
           />
         </View>
-        <View>
-          <Text style={styles.textStyle}>Symptom Checker</Text>
+
+        <View style={{ marginTop: 10 }}>
+          <Text style={styles.textStyle}>Hi {this.props.name}!</Text>
         </View>
+
+        <View style={{ marginTop: 10 }}>
+          <Text style={[styles.textStyle, { fontSize: 25 }]}>What can I help you?</Text>
+        </View>
+
         <View style={styles.buttonContainerStyle}>
-          <TouchableOpacity style={styles.buttonStyle} onPress={this.onSearch.bind(this)}>
+          <TouchableOpacity style={styles.buttonStyle} onPress={Actions.check}>
             <Icon name="search" style={styles.iconStyle}>
               <Text>  Check Symptoms</Text>
             </Icon>
@@ -32,25 +50,25 @@ class Homepage extends Component {
 
         <View style={styles.buttonContainerStyle}>
           <TouchableOpacity style={styles.buttonStyle} onPress={Actions.history}>
-            <Text style={styles.iconStyle}>
-              Go To Search History
-            </Text>
+            <Icon name="history" style={styles.iconStyle}>
+              <Text>  Search History</Text>
+            </Icon>
           </TouchableOpacity>
         </View>
 
         <View style={styles.buttonContainerStyle}>
           <TouchableOpacity style={styles.buttonStyle} onPress={Actions.profile}>
-            <Text style={styles.iconStyle}>
-              Go To Medical Profile
-            </Text>
+            <Icon name="book" style={styles.iconStyle}>
+              <Text>  Medical Profile</Text>
+            </Icon>
           </TouchableOpacity>
         </View>
 
         <View style={styles.buttonContainerStyle}>
           <TouchableOpacity style={styles.buttonStyle} onPress={Actions.settings}>
-            <Text style={styles.iconStyle}>
-              Go To Settings
-            </Text>
+            <Icon name="gear" style={styles.iconStyle}>
+              <Text>  Settings</Text>
+            </Icon>
           </TouchableOpacity>
         </View>
 
@@ -67,7 +85,7 @@ const styles = {
     flex: 1,
   },
   viewStyle: {
-    marginTop: 100,
+    marginTop: 50,
     width: 155,
     height: 155,
     padding: 5,
@@ -84,16 +102,15 @@ const styles = {
   textStyle: {
     fontSize: 30,
     fontWeight: 'bold',
-    letterSpacing: 1,
     color: '#229AD5'
   },
   buttonContainerStyle: {
-    marginTop: 50,
+    marginTop: 30,
     padding: 10,
     width: 300,
     height: 50,
     borderWidth: 1,
-    borderRadius: 5,
+    borderRadius: 30,
     borderColor: '#229AD5',
     alignItems: 'center',
     backgroundColor: '#FFF'
@@ -112,4 +129,10 @@ const styles = {
   }
 };
 
-export default Homepage;
+const mapStateToProps = ({ profile }) => {
+  const { name } = profile;
+
+  return { name };
+};
+
+export default connect(mapStateToProps, { profileFetch })(Homepage);

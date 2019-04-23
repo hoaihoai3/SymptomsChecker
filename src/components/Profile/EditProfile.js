@@ -138,7 +138,7 @@ class EditProfile extends Component {
               <View style={styles.itemContainerStyle3}>
                 <Text style={itemTitleStyle}>Name</Text>
               </View>
-              <View style={{ marginLeft: 10 }}>
+              <View style={styles.itemContainerStyle4}>
                 <TextInput
                   style={itemStyle}
                   value={this.props.name}
@@ -153,7 +153,7 @@ class EditProfile extends Component {
               <View style={styles.itemContainerStyle3}>
                 <Text style={itemTitleStyle}>Age</Text>
               </View>
-              <View style={{ marginLeft: 10 }}>
+              <View style={styles.itemContainerStyle4}>
                 <TextInput
                   style={itemStyle}
                   value={this.props.age.toString()}
@@ -346,6 +346,7 @@ class EditProfile extends Component {
         style={styles.saveButtonStyle}
         >
           <TouchableOpacity
+          style={styles.saveButtonStyle}
           onPress={() => this.saveProfile()}
           >
             <Text style={{ fontSize: 20, color: '#FFF' }}>Save</Text>
@@ -443,11 +444,10 @@ const styles = {
   genderCardStyle: {
     paddingTop: 10,
     paddingBottom: 10,
-    height: 80,
+    height: 60,
     paddingLeft: 20,
     paddingRight: 20,
     backgroundColor: '#FFF',
-    flexDirection: 'row',
     borderRadius: 5
   },
   buttonStyle: {
@@ -459,14 +459,15 @@ const styles = {
     alignSelf: 'flex-end',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 5,
-    marginRight: 10,
+    marginRight: 15,
+    marginTop: 5,
+    marginLeft: 10,
     backgroundColor: '#229AD5',
     borderColor: '#FFF',
     borderWidth: 1,
     borderRadius: 5,
-    width: 50,
-    height: 50,
+    width: 60,
+    height: 60,
     position: 'absolute'
   }
 };

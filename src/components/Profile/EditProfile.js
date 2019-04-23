@@ -60,23 +60,29 @@ class EditProfile extends Component {
 
   addAllergy(entry) {
     const newAllergies = [...this.props.allergies];
-    newAllergies.push(entry);
-    this.props.profileUpdate({ prop: 'allergies', value: newAllergies });
-    this.setState({ showModal1: false });
+    if (entry !== null || entry !== '') {
+      newAllergies.push(entry);
+      this.props.profileUpdate({ prop: 'allergies', value: newAllergies });
+      this.setState({ showModal1: false, allergyValue: '' });
+    }
   }
 
   addMedication(entry) {
     const newMedication = [...this.props.medication];
-    newMedication.push(entry);
-    this.props.profileUpdate({ prop: 'medication', value: newMedication });
-    this.setState({ showModal2: false });
+    if (entry !== null || entry !== '') {
+      newMedication.push(entry);
+      this.props.profileUpdate({ prop: 'medication', value: newMedication });
+      this.setState({ showModal2: false, medicationValue: '' });
+    }
   }
 
   addHistory(entry) {
     const newHistory = [...this.props.history];
-    newHistory.push(entry);
-    this.props.profileUpdate({ prop: 'history', value: newHistory });
-    this.setState({ showModal3: false });
+    if (entry !== null || entry !== '') {
+      newHistory.push(entry);
+      this.props.profileUpdate({ prop: 'history', value: newHistory });
+      this.setState({ showModal3: false, historyValue: '' });
+    }
   }
 
   renderAddModal(type) {
@@ -137,7 +143,7 @@ class EditProfile extends Component {
                   style={itemStyle}
                   value={this.props.name}
                   autoCapitalize="none"
-                  autoCorrect="false"
+                  placeholder="..."
                   onChangeText={value => this.props.profileUpdate({ prop: 'name', value })}
                 />
               </View>
@@ -152,7 +158,7 @@ class EditProfile extends Component {
                   style={itemStyle}
                   value={this.props.age.toString()}
                   autoCapitalize="none"
-                  autoCorrect="false"
+                  placeholder="..."
                   onChangeText={value => this.props.profileUpdate({ prop: 'age', value })}
                 />
               </View>
@@ -182,7 +188,7 @@ class EditProfile extends Component {
                   style={itemStyle}
                   value={this.props.height.toString()}
                   autoCapitalize="none"
-                  autoCorrect="false"
+                  placeholder="..."
                   onChangeText={value => this.props.profileUpdate({ prop: 'height', value })}
                 />
               </View>
@@ -200,7 +206,7 @@ class EditProfile extends Component {
                   style={itemStyle}
                   value={this.props.weight.toString()}
                   autoCapitalize="none"
-                  autoCorrect="false"
+                  placeholder="..."
                   onChangeText={value => this.props.profileUpdate({ prop: 'weight', value })}
                 />
               </View>
@@ -218,7 +224,7 @@ class EditProfile extends Component {
                   style={itemStyle}
                   value={this.props.bloodGroup}
                   autoCapitalize="none"
-                  autoCorrect="false"
+                  placeholder="..."
                   onChangeText={value => this.props.profileUpdate({ prop: 'bloodGroup', value })}
                 />
               </View>
@@ -233,7 +239,7 @@ class EditProfile extends Component {
                   style={itemStyle}
                   value={this.props.bloodGlucose.toString()}
                   autoCapitalize="none"
-                  autoCorrect="false"
+                  placeholder="..."
                   onChangeText={value => this.props.profileUpdate({ prop: 'bloodGlucose', value })}
                 />
               </View>
@@ -251,7 +257,7 @@ class EditProfile extends Component {
                   style={itemStyle}
                   value={this.props.bloodPressure}
                   autoCapitalize="none"
-                  autoCorrect="false"
+                  placeholder="..."
                   onChangeText={value => this.props.profileUpdate({ prop: 'bloodPressure', value })}
                 />
               </View>
@@ -278,10 +284,11 @@ class EditProfile extends Component {
             </View>
             <AddModal
               title='Add Allergy'
-              placeholder='Enter here ...'
-              onButtonPress={this.addAllergy}
+              placeholder='Enter allergy ...'
+              onChangeText={text => this.setState({ allergyValue: text })}
+              onButtonPress={() => this.addAllergy(this.state.allergyValue)}
               visible={this.state.showModal1}
-              // onIconPress={this.setState({ showModal1: !this.state.showModal1 })}
+              onIconPress={() => this.renderAddModal(1)}
             />
           </View>
 
@@ -302,10 +309,11 @@ class EditProfile extends Component {
             </View>
             <AddModal
               title='Add Medication'
-              placeholder='Enter here ...'
-              onButtonPress={this.addMedication}
+              placeholder='Enter medication ...'
+              onChangeText={text => this.setState({ medicationValue: text })}
+              onButtonPress={() => this.addMedication(this.state.medicationValue)}
               visible={this.state.showModal2}
-              // onIconPress={this.setState({ showModal2: !this.state.showModal2 })}
+              onIconPress={() => this.renderAddModal(2)}
             />
           </View>
 
@@ -326,27 +334,23 @@ class EditProfile extends Component {
             </View>
             <AddModal
               title='Add History'
-              placeholder='Enter here ...'
+              placeholder='Enter condition history ...'
               onChangeText={text => this.setState({ historyValue: text })}
               onButtonPress={() => this.addHistory(this.state.historyValue)}
-              // onIconPress={this.setState({ showModal3: !this.state.showModal3 })}
+              onIconPress={() => this.renderAddModal(3)}
               visible={this.state.showModal3}
             />
           </View>
-
-          <View
-          style={
-            [styles.buttonContainerStyle,
-               { borderRadius: 30, marginTop: 40, alignItems: 'center', height: 45 }]}
-          >
-            <TouchableOpacity
-            style={styles.logOutButtonStyle}
-            onPress={() => this.saveProfile()}
-            >
-              <Text style={[styles.iconStyle, { color: '#DC143C' }]}>  Log Out</Text>
-            </TouchableOpacity>
-          </View>
         </ScrollView>
+        <View
+        style={styles.saveButtonStyle}
+        >
+          <TouchableOpacity
+          onPress={() => this.saveProfile()}
+          >
+            <Text style={{ fontSize: 20, color: '#FFF' }}>Save</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -439,16 +443,31 @@ const styles = {
   genderCardStyle: {
     paddingTop: 10,
     paddingBottom: 10,
-    height: 60,
+    height: 80,
     paddingLeft: 20,
     paddingRight: 20,
     backgroundColor: '#FFF',
-    flexDirection: 'column',
+    flexDirection: 'row',
     borderRadius: 5
   },
   buttonStyle: {
     borderTopWidth: 1,
     borderColor: '#229AD5'
+  },
+  saveButtonStyle: {
+    flexDirection: 'row',
+    alignSelf: 'flex-end',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 5,
+    marginRight: 10,
+    backgroundColor: '#229AD5',
+    borderColor: '#FFF',
+    borderWidth: 1,
+    borderRadius: 5,
+    width: 50,
+    height: 50,
+    position: 'absolute'
   }
 };
 

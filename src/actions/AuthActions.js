@@ -11,7 +11,6 @@ import { EMAIL_CHANGED,
          UNMATCHED_PASSWORD,
          GO_TO_LOGIN,
          GO_TO_SIGNUP,
-         LOG_OUT_USER,
          LOG_OUT_USER_SUCCESS,
          LOG_OUT_USER_FAIL
        } from './types';

@@ -13,13 +13,14 @@ import UseTerms from './components/Settings/UseTerms';
 import AccountPage from './components/Settings/AccountPage';
 import SymptomsCheck from './components/SymptomsCheck';
 
+
 const RouterComponent = () => {
 
   return (
     <Router>
       <Scene key="root" hideNavBar>
         <Scene key="auth">
-          <Scene key="welcome" component={WelcomePage} title="Welcome" initial />
+          <Scene key="welcome" component={WelcomePage} title="Welcome" />
           <Scene
             key="login"
             component={LoginForm}

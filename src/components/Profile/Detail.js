@@ -2,20 +2,25 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const ProfileDetail = ({ title, item, unit, iconName, onIconPress, id }) => {
+const ProfileDetail = ({ title, item, unit, iconName, onIconPress }) => {
   const {
     itemStyle,
     itemTitleStyle,
     itemContainerStyle,
+    iconContainerStyle
    } = styles;
 
   return (
-    <View style={itemContainerStyle} id={id}>
-      <Text>
-        <Text style={itemTitleStyle}>{title} </Text>
-        <Text style={itemStyle}>{item} {unit}</Text>
-        <Icon name={iconName} onPress={onIconPress} />
-      </Text>
+    <View style={itemContainerStyle}>
+      <View>
+        <Text>
+          <Text style={itemTitleStyle}>{title} </Text>
+          <Text style={itemStyle}>{item} {unit}</Text>
+        </Text>
+      </View>
+      <View>
+        <Icon style={iconContainerStyle} name={iconName} onPress={onIconPress} />
+      </View>
     </View>
   );
 };
@@ -28,7 +33,9 @@ const styles = {
     paddingLeft: 20,
     paddingRight: 20,
     backgroundColor: '#FFF',
-    borderRadius: 5
+    borderRadius: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   itemTitleStyle: {
     fontSize: 17,
@@ -38,5 +45,10 @@ const styles = {
     fontSize: 16,
     color: '#58595A'
   },
+  iconContainerStyle: {
+    alignSelf: 'flex-end',
+    justifyContent: 'center',
+    paddingTop: 2
+  }
 };
 export default ProfileDetail;

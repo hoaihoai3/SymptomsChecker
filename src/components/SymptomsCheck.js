@@ -4,6 +4,7 @@ import Firebase from './Firebase';
 import { Header, Spinner }  from './common';
 import Autocomplete from 'react-native-autocomplete-input';
 import elasticlunr from '../libraries/elasticlunr';
+import moment from '../libraries/moment';
 
 // const firebase = require('firebase');
 
@@ -147,7 +148,8 @@ async queryItems(inputArray){
     this.setState({loading: true, symptoms: []})
     const results = await countData(inputArray, db)
     db.collection('Users').doc(Firebase.auth().currentUser.uid).collection('historyList').add({
-      time:"helloooooo",
+      time: moment()
+      .format('MMMM Do YYYY, h:mm:ss a'),
       symptoms: inputArray,
       results: results
     })

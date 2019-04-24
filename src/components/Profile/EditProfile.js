@@ -1,31 +1,104 @@
 import React, { Component } from 'react';
-import { Picker, View, Text, TextInput, ScrollView } from 'react-native';
+import { Picker, View, Text, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import _ from 'lodash';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import firebase from 'firebase';
 import 'firebase/firestore';
-import { CardSection, Input, Button } from '../common';
+import { Button } from '../common';
 import { profileUpdate, profileSave, profileFetch } from '../../actions';
 import ProfileDetail from './Detail';
-
-// import ListItem from './ListItem';
+import { AddModal } from './AddModal';
 
 class EditProfile extends Component {
-  state = { showModal: false }
-
+  state = {
+    showModal1: false,
+    showModal2: false,
+    showModal3: false,
+    allergyValue: '',
+    medicationValue: '',
+    historyValue: ''
+   }
 
   componentWillMount() {
     this.props.profileFetch();
   }
 
-  onIconPress() {
-    console.log('Icon Pressed');
+  saveProfile() {
+    const { name, age, gender, allergies, bloodGlucose, bloodPressure,
+      bloodGroup, height, weight, history, medication } = this.props;
+
+    this.props.profileSave({ name, age, gender, allergies, bloodGlucose, bloodPressure,
+      bloodGroup, height, weight, history, medication });
   }
 
-  addOption() {
-    console.log('Add Option');
+  removeMedication(index) {
+    const newMedication = [...this.props.medication];
+    if (index !== -1) {
+      newMedication.splice(index, 1);
+      console.log(newMedication);
+      this.props.profileUpdate({ prop: 'medication', value: newMedication });
+    }
+  }
+
+  removeAllergy(index) {
+    const newAllergies = [...this.props.allergies];
+    if (index !== -1) {
+      newAllergies.splice(index, 1);
+      console.log(newAllergies);
+      this.props.profileUpdate({ prop: 'allergies', value: newAllergies });
+    }
+  }
+
+  removeHistory(index) {
+    const newHistory = [...this.props.history];
+    if (index !== -1) {
+      newHistory.splice(index, 1);
+      console.log(newHistory);
+      this.props.profileUpdate({ prop: 'history', value: newHistory });
+    }
+  }
+
+  addAllergy(entry) {
+    const newAllergies = [...this.props.allergies];
+    if (entry !== null || entry !== '') {
+      newAllergies.push(entry);
+      this.props.profileUpdate({ prop: 'allergies', value: newAllergies });
+      this.setState({ showModal1: false, allergyValue: '' });
+    }
+  }
+
+  addMedication(entry) {
+    const newMedication = [...this.props.medication];
+    if (entry !== null || entry !== '') {
+      newMedication.push(entry);
+      this.props.profileUpdate({ prop: 'medication', value: newMedication });
+      this.setState({ showModal2: false, medicationValue: '' });
+    }
+  }
+
+  addHistory(entry) {
+    const newHistory = [...this.props.history];
+    if (entry !== null || entry !== '') {
+      newHistory.push(entry);
+      this.props.profileUpdate({ prop: 'history', value: newHistory });
+      this.setState({ showModal3: false, historyValue: '' });
+    }
+  }
+
+  renderAddModal(type) {
+    switch (type) {
+      case 1:
+      this.setState({ showModal1: !this.state.showModal1 });
+      break;
+      case 2:
+      this.setState({ showModal2: !this.state.showModal2 });
+      break;
+      case 3:
+      this.setState({ showModal3: !this.state.showModal3 });
+      break;
+      default:
+        return null;
+    }
   }
 
   renderSectionHeader(title) {
@@ -39,7 +112,7 @@ class EditProfile extends Component {
   renderButton(text) {
     return (
       <View style={styles.buttonStyle}>
-        <Button onPress={this.addOption.bind(this)}>
+        <Button onPress={() => this.addOption()}>
           <Icon name="plus" style={{ fontSize: 16 }}> Add {text} </Icon>
         </Button>
       </View>
@@ -62,28 +135,30 @@ class EditProfile extends Component {
           <View style={cardStyle}>
             {this.renderSectionHeader('Basic Information')}
             <View style={styles.itemContainerStyle2}>
-              <View style={{ width: 150 }}>
+              <View style={styles.itemContainerStyle3}>
                 <Text style={itemTitleStyle}>Name</Text>
               </View>
-              <View style={{ marginLeft: 10 }}>
+              <View style={styles.itemContainerStyle4}>
                 <TextInput
                   style={itemStyle}
                   value={this.props.name}
                   autoCapitalize="none"
+                  placeholder="..."
                   onChangeText={value => this.props.profileUpdate({ prop: 'name', value })}
                 />
               </View>
             </View>
 
             <View style={styles.itemContainerStyle2}>
-              <View style={{ width: 150 }}>
+              <View style={styles.itemContainerStyle3}>
                 <Text style={itemTitleStyle}>Age</Text>
               </View>
-              <View style={{ marginLeft: 10 }}>
+              <View style={styles.itemContainerStyle4}>
                 <TextInput
                   style={itemStyle}
                   value={this.props.age.toString()}
                   autoCapitalize="none"
+                  placeholder="..."
                   onChangeText={value => this.props.profileUpdate({ prop: 'age', value })}
                 />
               </View>
@@ -96,8 +171,8 @@ class EditProfile extends Component {
                 selectedValue={this.props.gender}
                 onValueChange={value => this.props.profileUpdate({ prop: 'gender', value })}
               >
-                <Picker.Item label="Male" value="M" />
-                <Picker.Item label="Female" value="F" />
+                <Picker.Item label="Male" value="Male" />
+                <Picker.Item label="Female" value="Female" />
               </Picker>
             </View>
           </View>
@@ -105,72 +180,89 @@ class EditProfile extends Component {
           <View style={cardStyle}>
             {this.renderSectionHeader('Health Information')}
             <View style={styles.itemContainerStyle2}>
-              <View style={{ width: 150 }}>
+              <View style={styles.itemContainerStyle3}>
                 <Text style={itemTitleStyle}>Height</Text>
               </View>
-              <View style={{ marginLeft: 20 }}>
+              <View style={styles.itemContainerStyle4}>
                 <TextInput
                   style={itemStyle}
                   value={this.props.height.toString()}
                   autoCapitalize="none"
+                  placeholder="..."
                   onChangeText={value => this.props.profileUpdate({ prop: 'height', value })}
                 />
+              </View>
+              <View style={styles.itemContainerStyle5}>
+                <Text style={{ fontSize: 16 }}> cm</Text>
               </View>
             </View>
 
             <View style={styles.itemContainerStyle2}>
-              <View style={{ width: 150 }}>
+              <View style={styles.itemContainerStyle3}>
                 <Text style={itemTitleStyle}>Weight</Text>
               </View>
-              <View style={{ marginLeft: 20 }}>
+              <View style={styles.itemContainerStyle4}>
                 <TextInput
                   style={itemStyle}
                   value={this.props.weight.toString()}
                   autoCapitalize="none"
+                  placeholder="..."
                   onChangeText={value => this.props.profileUpdate({ prop: 'weight', value })}
                 />
+              </View>
+              <View style={styles.itemContainerStyle5}>
+                <Text style={{ fontSize: 16 }}> kg</Text>
               </View>
             </View>
 
             <View style={styles.itemContainerStyle2}>
-            <View style={{ width: 150 }}>
+            <View style={styles.itemContainerStyle3}>
                 <Text style={itemTitleStyle}>Blood Group</Text>
               </View>
-              <View style={{ marginLeft: 20 }}>
+              <View style={styles.itemContainerStyle4}>
                 <TextInput
                   style={itemStyle}
                   value={this.props.bloodGroup}
                   autoCapitalize="none"
+                  placeholder="..."
                   onChangeText={value => this.props.profileUpdate({ prop: 'bloodGroup', value })}
                 />
               </View>
             </View>
 
             <View style={styles.itemContainerStyle2}>
-              <View style={{ width: 150 }}>
+              <View style={styles.itemContainerStyle3}>
                 <Text style={itemTitleStyle}>Blood Glucose</Text>
               </View>
-              <View style={{ marginLeft: 20 }}>
+              <View style={styles.itemContainerStyle4}>
                 <TextInput
                   style={itemStyle}
                   value={this.props.bloodGlucose.toString()}
                   autoCapitalize="none"
+                  placeholder="..."
                   onChangeText={value => this.props.profileUpdate({ prop: 'bloodGlucose', value })}
                 />
+              </View>
+              <View style={styles.itemContainerStyle5}>
+                <Text style={{ fontSize: 16 }}> mmol/L</Text>
               </View>
             </View>
 
             <View style={styles.itemContainerStyle2}>
-              <View style={{ width: 150 }}>
+              <View style={styles.itemContainerStyle3}>
                 <Text style={itemTitleStyle}>Blood Pressure</Text>
               </View>
-              <View style={{ marginLeft: 20 }}>
+              <View style={styles.itemContainerStyle4}>
                 <TextInput
                   style={itemStyle}
                   value={this.props.bloodPressure}
                   autoCapitalize="none"
+                  placeholder="..."
                   onChangeText={value => this.props.profileUpdate({ prop: 'bloodPressure', value })}
                 />
+              </View>
+              <View style={styles.itemContainerStyle5}>
+                <Text style={{ fontSize: 16 }}> mmHg</Text>
               </View>
             </View>
           </View>
@@ -178,9 +270,26 @@ class EditProfile extends Component {
           <View style={cardStyle}>
             {this.renderSectionHeader('Allergies')}
             {this.props.allergies.map((item, key) => (
-                <ProfileDetail item={item} key={key} />
+              <ProfileDetail
+                item={item}
+                key={key}
+                iconName="remove"
+                onIconPress={() => this.removeAllergy(key)}
+              />
             ))}
-            {this.renderButton('Allergy')}
+            <View style={styles.buttonStyle}>
+              <Button onPress={() => this.renderAddModal(1)}>
+                <Icon name="plus" style={{ fontSize: 16 }}> Add Allergy</Icon>
+              </Button>
+            </View>
+            <AddModal
+              title='Add Allergy'
+              placeholder='Enter allergy ...'
+              onChangeText={text => this.setState({ allergyValue: text })}
+              onButtonPress={() => this.addAllergy(this.state.allergyValue)}
+              visible={this.state.showModal1}
+              onIconPress={() => this.renderAddModal(1)}
+            />
           </View>
 
           <View style={cardStyle}>
@@ -190,27 +299,79 @@ class EditProfile extends Component {
                 item={item}
                 key={key}
                 iconName="remove"
-                onIconPress={this.onIconPress.bind(this)}
+                onIconPress={() => this.removeMedication(key)}
               />
             ))}
-            {this.renderButton('Medication')}
+            <View style={styles.buttonStyle}>
+              <Button onPress={() => this.renderAddModal(2)}>
+                <Icon name="plus" style={{ fontSize: 16 }}> Add Medication</Icon>
+              </Button>
+            </View>
+            <AddModal
+              title='Add Medication'
+              placeholder='Enter medication ...'
+              onChangeText={text => this.setState({ medicationValue: text })}
+              onButtonPress={() => this.addMedication(this.state.medicationValue)}
+              visible={this.state.showModal2}
+              onIconPress={() => this.renderAddModal(2)}
+            />
           </View>
 
           <View style={cardStyle}>
             {this.renderSectionHeader('History')}
             {this.props.history.map((item, key) => (
-                <ProfileDetail item={item} key={key} />
+              <ProfileDetail
+                item={item}
+                key={key}
+                iconName="remove"
+                onIconPress={() => this.removeHistory(key)}
+              />
             ))}
-            {this.renderButton('History')}
-
+            <View style={styles.buttonStyle}>
+              <Button onPress={() => this.renderAddModal(3)}>
+                <Icon name="plus" style={{ fontSize: 16 }}> Add History</Icon>
+              </Button>
+            </View>
+            <AddModal
+              title='Add History'
+              placeholder='Enter condition history ...'
+              onChangeText={text => this.setState({ historyValue: text })}
+              onButtonPress={() => this.addHistory(this.state.historyValue)}
+              onIconPress={() => this.renderAddModal(3)}
+              visible={this.state.showModal3}
+            />
           </View>
         </ScrollView>
+        <View
+        style={styles.saveButtonStyle}
+        >
+          <TouchableOpacity
+          style={styles.saveButtonStyle}
+          onPress={() => this.saveProfile()}
+          >
+            <Text style={{ fontSize: 20, color: '#FFF' }}>Save</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
 }
 
 const styles = {
+  buttonContainerStyle: {
+  marginTop: 20,
+  height: 60,
+  borderWidth: 1,
+  borderRadius: 30,
+  borderColor: '#229AD5',
+  backgroundColor: '#FFF',
+},
+  logOutButtonStyle: {
+    width: 150,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   containerStyle: {
     flex: 1,
     backgroundColor: '#E8F8FF'
@@ -237,16 +398,6 @@ const styles = {
     backgroundColor: '#229AD5',
     height: 60,
   },
-  itemContainerStyle: {
-    paddingTop: 10,
-    paddingBottom: 10,
-    height: 45,
-    paddingLeft: 20,
-    paddingRight: 20,
-    borderBottomWidth: 1,
-    borderColor: '#F3F3F3',
-    borderRadius: 5
-  },
   itemContainerStyle2: {
     paddingTop: 10,
     paddingBottom: 10,
@@ -258,7 +409,18 @@ const styles = {
     borderRadius: 5,
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+  },
+  itemContainerStyle3: {
+    width: 150
+  },
+  itemContainerStyle4: {
+    marginLeft: 20
+  },
+  itemContainerStyle5: {
+    alignSelf: 'flex-end',
+    paddingBottom: 3,
+    marginLeft: 5
   },
   cardStyle: {
     borderWidth: 1,
@@ -279,22 +441,34 @@ const styles = {
     fontSize: 16,
     color: '#58595A'
   },
-  itemContainerStyle3: {
-    marginLeft: 20
-  },
   genderCardStyle: {
     paddingTop: 10,
     paddingBottom: 10,
-    height: 200,
+    height: 160,
     paddingLeft: 20,
     paddingRight: 20,
     backgroundColor: '#FFF',
-    flexDirection: 'column',
     borderRadius: 5
   },
   buttonStyle: {
     borderTopWidth: 1,
     borderColor: '#229AD5'
+  },
+  saveButtonStyle: {
+    flexDirection: 'row',
+    alignSelf: 'flex-end',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 15,
+    marginTop: 5,
+    marginLeft: 10,
+    backgroundColor: '#229AD5',
+    borderColor: '#FFF',
+    borderWidth: 1,
+    borderRadius: 5,
+    width: 60,
+    height: 60,
+    position: 'absolute'
   }
 };
 

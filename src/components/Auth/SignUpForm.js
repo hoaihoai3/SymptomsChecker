@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { Text, View, Image } from 'react-native';
 import { connect } from 'react-redux';
-import { Card, CardSection, Button, Input, Spinner } from '../common';
+import { CardSection, Button, Input, Spinner } from '../common';
 import { emailChanged, passwordChanged, confirmPasswordChanged, signUpUser } from '../../actions';
 
 class SignUpForm extends Component {
-
-  state = { confirmError: '' };
-
+  
   onEmailChange(text) {
     this.props.emailChanged(text);
   }
@@ -93,7 +91,7 @@ class SignUpForm extends Component {
               autoCapitalize="none"
               placeholder='Confirm Password'
               onChangeText={this.onConfirmPasswordChange.bind(this)}
-              value={this.state.confirmPassword}
+              value={this.props.confirmPassword}
             />
           </CardSection>
 

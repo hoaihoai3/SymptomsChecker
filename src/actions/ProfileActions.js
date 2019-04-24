@@ -35,7 +35,7 @@ import {
         .update({ name, age, gender, height, weight, bloodGroup, bloodGlucose, bloodPressure, allergies, medication, history })
         .then(() => {
           dispatch({ type: PROFILE_SAVE_SUCCESS, });
-          Actions.profile({ type: 'reset' });
+          Actions.pop();
         });
     };
   };

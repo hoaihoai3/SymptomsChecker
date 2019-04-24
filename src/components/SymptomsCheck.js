@@ -4,6 +4,7 @@ import Firebase from './Firebase';
 import { Header, Spinner }  from './common';
 import Autocomplete from 'react-native-autocomplete-input';
 import elasticlunr from '../libraries/elasticlunr';
+import moment from '../libraries/moment';
 
 // const firebase = require('firebase');
 
@@ -128,10 +129,8 @@ async function countData(inputArray,db){
 
 var selected = []
 
-db.collection('History').doc("6zedIXLc2vhPclUEIrIO0JHvnlG2").collection("historyList").get().then((querySnapshot) => querySnapshot.forEach((doc) => console.log(doc.data())))
-
 class SymptomsCheck extends Component {
-  state = { symptoms: [], query: '', loading: false, results: [], selectedResult: ''}
+  state = { symptoms: [], query: '', loading: false, results: [], selectedResult: '', placeholder: 'Enter a symptom you are having'}
 
   removeItem(index) {
     this.setState({
@@ -142,15 +141,35 @@ class SymptomsCheck extends Component {
   }
 
 async queryItems(inputArray){
+    if (_.isEmpty(this.state.symptoms)){
+      this.setState({placeholder: "Please input at least one symptom"})
+    }
+    else {
     this.setState({loading: true, symptoms: []})
     const results = await countData(inputArray, db)
-    this.setState({loading: false, results: results})
+    db.collection('Users').doc(Firebase.auth().currentUser.uid).collection('historyList').add({
+      time: moment()
+      .format('MMMM Do YYYY, h:mm:ss a'),
+      symptoms: inputArray,
+      results: results
+    })
+    this.setState({loading: false, results: results, placeholder: 'Search again'})
+    selected = this.state.symptoms
+  }
   }
 
 
   renderButton(){
     if (this.state.loading === true){
       return <Spinner styles={{}} />;
+    }
+    if (!_.isEmpty(this.state.results)){
+      return (
+        <Button title="Search again" onPress={() => {
+            this.setState({results: [], placeholder: "Enter a symptom you are having"})
+            selected = this.state.symptoms
+          }}></Button>
+      )
     }
     return(
       <Button title="Search" onPress={() => this.queryItems(this.state.symptoms, db)}></Button>
@@ -160,8 +179,7 @@ async queryItems(inputArray){
   renderFlatList(){
     if (!_.isEmpty(this.state.results)) {
       return (
-        <View>
-        <Text> Results </Text>
+        <View style={{height: "45%"}}>
         <FlatList
         style={styles.list}
         data={this.state.results}
@@ -171,7 +189,7 @@ async queryItems(inputArray){
               <Text style={styles.listItem}>
                {item.disease + ":  " + item.score}
               </Text>
-              <Button title="more info" onPress={() => this.setState({selectedResult: item.disease})} />
+              <Button style={{flex: 1}} title="more info" onPress={() => this.setState({selectedResult: item.disease})} />
             </View>
             <View style={styles.hr} />
           </View>}
@@ -181,6 +199,7 @@ async queryItems(inputArray){
       )
     }
     return (
+      <View style={{height:"45%"}}>
       <FlatList
       style={styles.list}
       data={this.state.symptoms}
@@ -196,6 +215,7 @@ async queryItems(inputArray){
         </View>}
       keyExtractor={(item, index) => index.toString()}
       />
+  </View>
     )
   }
 
@@ -205,9 +225,9 @@ async queryItems(inputArray){
     return (
       <View style={styles.container}>
         <Header headerText='Check Symptoms'/>
-        <View style={{flex: 1}}>
+        <View style={{flex: 2}}>
           <Autocomplete
-          placeholder='Enter a symptom you are having'
+          placeholder= {this.state.placeholder}
           autoCorrect= {false}
           autoCapitalize="none"
           containerStyle={styles.autoCompleteContainer}
@@ -216,7 +236,7 @@ async queryItems(inputArray){
           inputContainerStyle={styles.autoCompleteInputContainer}
           data={data}
           defaultValue={query}
-          onChangeText={text => this.setState({ query: text })}
+          onChangeText={text => this.setState({ query: text, results: [], placeholder: 'Enter a symptom you are having' })}
 
           renderItem={({ item, index }) => (
             <TouchableOpacity onPress={() => this.setState(state => {
@@ -234,9 +254,7 @@ async queryItems(inputArray){
           keyExtractor={(item, index) => index.toString()}
         />
       </View>
-      <View styles={{flex: 3, paddingBottom: 20}}>
-        {this.renderFlatList()}
-  </View>
+      {this.renderFlatList()}
   <View style={{height:"5%"}}>
     {this.renderButton()}
   </View>
@@ -254,7 +272,8 @@ const styles = {
     padding: 1
   },
   autoCompleteContainer:{
-    flex: 1
+    flex: 1,
+    zIndex: 1
   },
   autoCompleteList: {
     width:"100%",
@@ -272,8 +291,8 @@ const styles = {
   listItem: {
     paddingTop: 2,
     paddingBottom: 2,
-    fontSize: 18
-
+    fontSize: 18,
+    flex: 4
   },
   hr: {
     height: 1,

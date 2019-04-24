@@ -12,8 +12,6 @@ import { profileFetch } from '../../actions';
 // import ListItem from './ListItem';
 
 class AccountPage extends Component {
-  state = { showModal: false }
-
 
   componentWillMount() {
     this.props.profileFetch();

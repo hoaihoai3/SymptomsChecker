@@ -444,7 +444,7 @@ const styles = {
   genderCardStyle: {
     paddingTop: 10,
     paddingBottom: 10,
-    height: 60,
+    height: 160,
     paddingLeft: 20,
     paddingRight: 20,
     backgroundColor: '#FFF',

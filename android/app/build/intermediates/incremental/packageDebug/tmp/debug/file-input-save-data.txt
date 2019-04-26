@@ -1,9 +1,5 @@
 #Internal package file, do not edit.
-<<<<<<< HEAD
-#Fri Apr 26 22:59:55 ICT 2019
-=======
-#Wed Apr 24 10:21:15 ICT 2019
->>>>>>> master
+#Sat Apr 27 00:20:34 ICT 2019
 56.path=lib/arm64-v8a/libglog_init.so
 5.base=C\:\\Work\\sepm\\SymptomsChecker\\android\\app\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out
 42.base=C\:\\Work\\sepm\\SymptomsChecker\\android\\app\\build\\intermediates\\transforms\\mergeJniLibs\\debug\\0

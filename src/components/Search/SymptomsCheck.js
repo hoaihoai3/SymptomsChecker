@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, TouchableOpacity, FlatList, View, Button } from 'react-native';
-import Firebase from './Firebase';
-import { Header, Spinner }  from './common';
+import Firebase from '../Firebase';
+import { Header, Spinner }  from '../common';
 import { Actions } from 'react-native-router-flux';
 import Autocomplete from 'react-native-autocomplete-input';
 import elasticlunr from '../../libraries/elasticlunr';

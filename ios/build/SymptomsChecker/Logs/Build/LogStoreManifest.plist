@@ -6,7 +6,7 @@
 	<integer>9</integer>
 	<key>logs</key>
 	<dict>
-		<key>F41F3317-2275-4F08-93B9-B64ACF9375E4</key>
+		<key>358BCF08-1F45-4E42-A9CE-04FC5D063FD2</key>
 		<dict>
 			<key>className</key>
 			<string>IDECommandLineBuildLog</string>
@@ -15,7 +15,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>F41F3317-2275-4F08-93B9-B64ACF9375E4.xcactivitylog</string>
+			<string>358BCF08-1F45-4E42-A9CE-04FC5D063FD2.xcactivitylog</string>
 			<key>highLevelStatus</key>
 			<string>W</string>
 			<key>schemeIdentifier-containerName</key>
@@ -27,13 +27,42 @@
 			<key>signature</key>
 			<string>Building project SymptomsChecker with scheme SymptomsChecker and configuration Debug</string>
 			<key>timeStartedRecording</key>
-			<real>577708884.91012394</real>
+			<real>577974074.78590095</real>
 			<key>timeStoppedRecording</key>
-			<real>577708892.13158</real>
+			<real>577974076.18967605</real>
 			<key>title</key>
 			<string>Building project SymptomsChecker with scheme SymptomsChecker and configuration Debug</string>
 			<key>uniqueIdentifier</key>
-			<string>F41F3317-2275-4F08-93B9-B64ACF9375E4</string>
+			<string>358BCF08-1F45-4E42-A9CE-04FC5D063FD2</string>
+		</dict>
+		<key>5951C155-5231-4592-9736-36D7CCEEFB19</key>
+		<dict>
+			<key>className</key>
+			<string>IDECommandLineBuildLog</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>5951C155-5231-4592-9736-36D7CCEEFB19.xcactivitylog</string>
+			<key>highLevelStatus</key>
+			<string>W</string>
+			<key>schemeIdentifier-containerName</key>
+			<string>SymptomsChecker project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>SymptomsChecker</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Building project SymptomsChecker with scheme SymptomsChecker and configuration Debug</string>
+			<key>timeStartedRecording</key>
+			<real>577977673.01496994</real>
+			<key>timeStoppedRecording</key>
+			<real>577977674.72388196</real>
+			<key>title</key>
+			<string>Building project SymptomsChecker with scheme SymptomsChecker and configuration Debug</string>
+			<key>uniqueIdentifier</key>
+			<string>5951C155-5231-4592-9736-36D7CCEEFB19</string>
 		</dict>
 	</dict>
 </dict>

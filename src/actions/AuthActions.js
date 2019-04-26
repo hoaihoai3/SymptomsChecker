@@ -3,6 +3,7 @@ import { Actions } from 'react-native-router-flux';
 import { EMAIL_CHANGED,
          PASSWORD_CHANGED,
          CONFIRM_PASS_CHANGED,
+         OLD_PASS_CHANGED,
          LOGIN_USER_SUCCESS,
          LOGIN_USER_FAIL,
          LOGIN_USER,
@@ -12,7 +13,9 @@ import { EMAIL_CHANGED,
          GO_TO_LOGIN,
          GO_TO_SIGNUP,
          LOG_OUT_USER_SUCCESS,
-         LOG_OUT_USER_FAIL
+         LOG_OUT_USER_FAIL,
+         CHANGE_PASSWORD_FAIL,
+         CHANGE_PASSWORD_SUCCESS
        } from './types';
 
 export const emailChanged = (text) => {
@@ -46,6 +49,13 @@ export const passwordChanged = (text) => {
 export const confirmPasswordChanged = (text) => {
   return {
     type: CONFIRM_PASS_CHANGED,
+    payload: text
+  };
+};
+
+export const oldPasswordChanged = (text) => {
+  return {
+    type: OLD_PASS_CHANGED,
     payload: text
   };
 };
@@ -106,7 +116,7 @@ const logOutUserFail = (dispatch) => {
 
 const logOutUserSuccess = (dispatch) => {
   dispatch({
-    type: LOG_OUT_USER_SUCCESS,
+    type: LOG_OUT_USER_SUCCESS
   });
   Actions.auth();
 };
@@ -118,5 +128,31 @@ export const logOutUser = (user) => {
       .then(() => logOutUserSuccess(dispatch))
       .catch(() => logOutUserFail(dispatch));
     }
+  };
+};
+
+export const changePasswordFail = (dispatch) => {
+  dispatch({
+    type: CHANGE_PASSWORD_FAIL
+  });
+};
+
+export const changePassword = (currentPassword, newPassword, confirmPassword) => {
+  if (confirmPassword === newPassword) {
+    return (dispatch) => {
+    this.reauthenticate(currentPassword).then(() => {
+      const { currentUser } = firebase.auth();
+      currentUser.updatePassword(newPassword)
+      .then(() => {
+        console.log('Password updated!');
+        dispatch({ type: CHANGE_PASSWORD_SUCCESS });
+      })
+      .catch(() => { changePasswordFail(dispatch); });
+    })
+    .catch(() => { changePasswordFail(dispatch); });
+    };
+  }
+  return (dispatch) => {
+    dispatch({ type: UNMATCHED_PASSWORD });
   };
 };

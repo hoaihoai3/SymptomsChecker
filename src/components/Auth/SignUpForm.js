@@ -5,7 +5,7 @@ import { CardSection, Button, Input, Spinner } from '../common';
 import { emailChanged, passwordChanged, confirmPasswordChanged, signUpUser } from '../../actions';
 
 class SignUpForm extends Component {
-  
+
   onEmailChange(text) {
     this.props.emailChanged(text);
   }
@@ -70,6 +70,7 @@ class SignUpForm extends Component {
             <Input
               autoCapitalize="none"
               placeholder='Email'
+              maxLength={254}
               onChangeText={this.onEmailChange.bind(this)}
               value={this.props.email}
             />
@@ -80,6 +81,7 @@ class SignUpForm extends Component {
               secureTextEntry
               autoCapitalize="none"
               placeholder='Password'
+              maxLength={20}
               onChangeText={this.onPasswordChange.bind(this)}
               value={this.props.password}
             />
@@ -90,10 +92,13 @@ class SignUpForm extends Component {
               secureTextEntry
               autoCapitalize="none"
               placeholder='Confirm Password'
+              maxLength={20}
               onChangeText={this.onConfirmPasswordChange.bind(this)}
               value={this.props.confirmPassword}
             />
           </CardSection>
+
+          <View style={{ marginBottom: 20 }} />
 
           {this.renderError()}
           <CardSection>
@@ -123,7 +128,7 @@ const styles = {
     tintColor: '#04699B',
   },
   gapStyle: {
-    marginBottom: 50
+    marginBottom: 30
   },
   titleStyle: {
     alignSelf: 'center',

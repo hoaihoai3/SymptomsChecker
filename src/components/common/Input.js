@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, TextInput } from 'react-native';
 
-const Input = ({ label, value, onChangeText, placeholder, secureTextEntry, autoCapitalize, istyle }) => {
-  const { inputStyle, labelStyle, containerStyle } = styles;
+const Input = ({ value, onChangeText, placeholder, secureTextEntry, autoCapitalize, istyle, maxLength }) => {
+  const { inputStyle, containerStyle } = styles;
 
   return (
     <View style={containerStyle}>
@@ -14,6 +14,7 @@ const Input = ({ label, value, onChangeText, placeholder, secureTextEntry, autoC
         style={[inputStyle, istyle]}
         value={value}
         onChangeText={onChangeText}
+        maxLength={maxLength}
       />
     </View>
   );
@@ -36,7 +37,7 @@ const styles = {
     flex: 1
   },
   containerStyle: {
-    height: 40,
+    height: 50,
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center'

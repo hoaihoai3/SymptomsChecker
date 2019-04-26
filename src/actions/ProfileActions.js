@@ -25,7 +25,6 @@ import {
      };
    };
 
-
   export const profileSave = ({ name, age, gender, height, weight, bloodGroup, bloodGlucose,
                                 bloodPressure, allergies, medication, history }) => {
     const { currentUser } = firebase.auth();

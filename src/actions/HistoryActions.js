@@ -1,19 +1,21 @@
 import firebase from 'firebase';
 import 'firebase/firestore';
-import { Actions } from 'react-native-router-flux';
 import {
-  // PROFILE_EDIT,
   HISTORY_FETCH_SUCCESS
 } from './types';
 
- export const profileFetch = () => {
+ export const historyFetch = () => {
     const { currentUser } = firebase.auth();
+    const historyTempList = [];
     return (dispatch) => {
       firebase.firestore()
-      .collection('MedicalProfile').doc(currentUser.uid).collection('historyList')
+      .collection('Users').doc(currentUser.uid).collection('historyList')
+      .orderBy('time', 'desc')
+      .limit(5)
       .get()
       .then((querySnapshot) => querySnapshot.forEach((doc) =>
-      dispatch({ type: HISTORY_FETCH_SUCCESS, payload: doc.data() })
+      historyTempList.push(doc.data())
     ));
+    dispatch({ type: HISTORY_FETCH_SUCCESS, payload: historyTempList });
     };
   };

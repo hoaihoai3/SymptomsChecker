@@ -81,6 +81,7 @@ async function query(input, db) {
                     // console.log(doc.id)
                     var object = doc.data()
                     object.id = doc.data().name
+                    object.id2 = doc.data().id
                     results.push(object)
                     console.log(object)
                 });
@@ -191,12 +192,14 @@ async queryItems(inputArray){
                {item.disease + ":  " + item.score}
               </Text>
               <Button style={{flex: 1}} title="more info" onPress={ () => {
-                  console.log(globalResults)
-                  console.log(item)
-                  console.log(index)
-                  console.log(globalResults.find(x => x.name === item.disease))
-                  this.state.selectedDisease = globalResults.find(x => x.name === item.disease)
-                  Actions.info({disease: this.state.selectedDisease })
+                  // console.log(globalResults)
+                  // console.log(item)
+                  // console.log(index)
+                  // console.log(globalResults.find(x => x.name === item.disease))
+                  // this.state.selectedDisease = globalResults.find(x => x.name === item.disease)
+                  // Actions.info({disease: this.state.selectedDisease })
+                  console.log(this.state.selectedDisease = globalResults.find(x => x.name === item.disease).id2)
+                  Actions.info({disease:this.state.selectedDisease})
                 }
               }
                    />

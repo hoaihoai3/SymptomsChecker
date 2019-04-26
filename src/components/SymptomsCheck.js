@@ -179,7 +179,7 @@ async queryItems(inputArray){
   renderFlatList(){
     if (!_.isEmpty(this.state.results)) {
       return (
-        <View style={{height: "45%"}}>
+        <View style={{height: "60%"}}>
         <FlatList
         style={styles.list}
         data={this.state.results}

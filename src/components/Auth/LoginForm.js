@@ -67,6 +67,7 @@ class LoginForm extends Component {
               <Input
                 autoCapitalize="none"
                 placeholder='Email'
+                maxLength={254}
                 onChangeText={this.onEmailChange.bind(this)}
                 value={this.props.email}
               />
@@ -77,10 +78,13 @@ class LoginForm extends Component {
                 secureTextEntry
                 autoCapitalize="none"
                 placeholder='Password'
+                maxLength={20}
                 onChangeText={this.onPasswordChange.bind(this)}
                 value={this.props.password}
               />
             </CardSection>
+
+            <View style={{ marginBottom: 20 }} />
 
             {this.renderError()}
 
@@ -112,7 +116,7 @@ const styles = {
     tintColor: '#04699B',
   },
   gapStyle: {
-    marginBottom: 50
+    marginBottom: 30
   },
   titleStyle: {
     alignSelf: 'center',

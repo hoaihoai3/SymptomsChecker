@@ -3,8 +3,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
-import firebase from 'firebase';
-import 'firebase/firestore';
 import { profileFetch } from '../actions';
 
 
@@ -85,7 +83,7 @@ const styles = {
     flex: 1,
   },
   viewStyle: {
-    marginTop: 50,
+    marginTop: 30,
     width: 155,
     height: 155,
     padding: 5,
@@ -105,7 +103,7 @@ const styles = {
     color: '#229AD5'
   },
   buttonContainerStyle: {
-    marginTop: 30,
+    marginTop: 25,
     padding: 10,
     width: 300,
     height: 60,

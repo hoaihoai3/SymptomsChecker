@@ -6,6 +6,7 @@ import {
 
 const INITIAL_STATE = {
   name: '',
+  email: '',
   age: '',
   gender: '',
   height: '',
@@ -36,6 +37,7 @@ export default (state = INITIAL_STATE, action) => {
         allergies: action.payload.allergies,
         medication: action.payload.medication,
         history: action.payload.history,
+        email: action.payload.email
        };
       case PROFILE_SAVE_SUCCESS:
         return { ...state };

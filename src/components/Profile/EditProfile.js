@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Picker, View, Text, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import 'firebase/firestore';
 import { Button } from '../common';
+import Detail from './Detail';
 import { profileUpdate, profileSave, profileFetch } from '../../actions';
-import ProfileDetail from './Detail';
 import { AddModal } from './AddModal';
 
 class EditProfile extends Component {
@@ -35,7 +34,6 @@ class EditProfile extends Component {
     const newMedication = [...this.props.medication];
     if (index !== -1) {
       newMedication.splice(index, 1);
-      console.log(newMedication);
       this.props.profileUpdate({ prop: 'medication', value: newMedication });
     }
   }
@@ -44,7 +42,6 @@ class EditProfile extends Component {
     const newAllergies = [...this.props.allergies];
     if (index !== -1) {
       newAllergies.splice(index, 1);
-      console.log(newAllergies);
       this.props.profileUpdate({ prop: 'allergies', value: newAllergies });
     }
   }
@@ -53,7 +50,6 @@ class EditProfile extends Component {
     const newHistory = [...this.props.history];
     if (index !== -1) {
       newHistory.splice(index, 1);
-      console.log(newHistory);
       this.props.profileUpdate({ prop: 'history', value: newHistory });
     }
   }
@@ -138,9 +134,10 @@ class EditProfile extends Component {
               <View style={styles.itemContainerStyle3}>
                 <Text style={itemTitleStyle}>Name</Text>
               </View>
-              <View style={styles.itemContainerStyle4}>
+              <View style={[styles.itemContainerStyle4, { width: 120 }]}>
                 <TextInput
                   style={itemStyle}
+                  autoCorrect={false}
                   value={this.props.name}
                   autoCapitalize="none"
                   placeholder="..."
@@ -158,6 +155,8 @@ class EditProfile extends Component {
                   style={itemStyle}
                   value={this.props.age.toString()}
                   autoCapitalize="none"
+                  autoCorrect={false}
+                  maxLength={3}
                   placeholder="..."
                   onChangeText={value => this.props.profileUpdate({ prop: 'age', value })}
                 />
@@ -187,8 +186,10 @@ class EditProfile extends Component {
                 <TextInput
                   style={itemStyle}
                   value={this.props.height.toString()}
+                  autoCorrect={false}
                   autoCapitalize="none"
                   placeholder="..."
+                  maxLength={3}
                   onChangeText={value => this.props.profileUpdate({ prop: 'height', value })}
                 />
               </View>
@@ -205,8 +206,10 @@ class EditProfile extends Component {
                 <TextInput
                   style={itemStyle}
                   value={this.props.weight.toString()}
+                  autoCorrect={false}
                   autoCapitalize="none"
                   placeholder="..."
+                  maxLength={3}
                   onChangeText={value => this.props.profileUpdate({ prop: 'weight', value })}
                 />
               </View>
@@ -224,7 +227,9 @@ class EditProfile extends Component {
                   style={itemStyle}
                   value={this.props.bloodGroup}
                   autoCapitalize="none"
+                  autoCorrect={false}
                   placeholder="..."
+                  maxLength={7}
                   onChangeText={value => this.props.profileUpdate({ prop: 'bloodGroup', value })}
                 />
               </View>
@@ -239,7 +244,9 @@ class EditProfile extends Component {
                   style={itemStyle}
                   value={this.props.bloodGlucose.toString()}
                   autoCapitalize="none"
+                  autoCorrect={false}
                   placeholder="..."
+                  maxLength={2}
                   onChangeText={value => this.props.profileUpdate({ prop: 'bloodGlucose', value })}
                 />
               </View>
@@ -257,7 +264,9 @@ class EditProfile extends Component {
                   style={itemStyle}
                   value={this.props.bloodPressure}
                   autoCapitalize="none"
+                  autoCorrect={false}
                   placeholder="..."
+                  maxLength={7}
                   onChangeText={value => this.props.profileUpdate({ prop: 'bloodPressure', value })}
                 />
               </View>
@@ -270,7 +279,7 @@ class EditProfile extends Component {
           <View style={cardStyle}>
             {this.renderSectionHeader('Allergies')}
             {this.props.allergies.map((item, key) => (
-              <ProfileDetail
+              <Detail
                 item={item}
                 key={key}
                 iconName="remove"
@@ -295,7 +304,7 @@ class EditProfile extends Component {
           <View style={cardStyle}>
             {this.renderSectionHeader('Medication')}
             {this.props.medication.map((item, key) => (
-              <ProfileDetail
+              <Detail
                 item={item}
                 key={key}
                 iconName="remove"
@@ -320,7 +329,8 @@ class EditProfile extends Component {
           <View style={cardStyle}>
             {this.renderSectionHeader('History')}
             {this.props.history.map((item, key) => (
-              <ProfileDetail
+              <Detail
+                historyPageStyle={{ flexDirection: 'column' }}
                 item={item}
                 key={key}
                 iconName="remove"
@@ -401,7 +411,7 @@ const styles = {
   itemContainerStyle2: {
     paddingTop: 10,
     paddingBottom: 10,
-    height: 45,
+    height: 60,
     paddingLeft: 20,
     paddingRight: 20,
     borderBottomWidth: 1,
@@ -415,11 +425,12 @@ const styles = {
     width: 150
   },
   itemContainerStyle4: {
-    marginLeft: 20
+    marginLeft: 20,
+    width: 80
   },
   itemContainerStyle5: {
     alignSelf: 'flex-end',
-    paddingBottom: 3,
+    paddingBottom: 6,
     marginLeft: 5
   },
   cardStyle: {

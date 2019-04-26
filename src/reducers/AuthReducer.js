@@ -10,13 +10,18 @@ import { EMAIL_CHANGED,
          GO_TO_LOGIN,
          GO_TO_SIGNUP,
          LOG_OUT_USER_SUCCESS,
-         LOG_OUT_USER_FAIL
+         LOG_OUT_USER_FAIL,
+         OLD_PASS_CHANGED,
+         CHANGE_PASSWORD_FAIL,
+         CHANGE_PASSWORD_SUCCESS
+
  } from '../actions/types';
 
 const INITIAL_STATE = {
    email: '',
    password: '',
    confirmPassword: '',
+   oldPassword: '',
    user: null,
    error: '',
    loading: false
@@ -51,6 +56,12 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, ...INITIAL_STATE };
     case LOG_OUT_USER_FAIL:
       return { ...state, error: 'Failed to Log Out' };
+    case OLD_PASS_CHANGED:
+      return { ...state, oldPassword: action.payload };
+    case CHANGE_PASSWORD_SUCCESS:
+      return { ...state, ...INITIAL_STATE };
+    case CHANGE_PASSWORD_FAIL:
+      return { ...state, error: 'Failed to change password', loading: false };
     default:
       return state;
   }

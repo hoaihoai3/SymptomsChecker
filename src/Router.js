@@ -3,7 +3,7 @@ import { Scene, Router, Actions } from 'react-native-router-flux';
 import LoginForm from './components/Auth/LoginForm';
 import SignUpForm from './components/Auth/SignUpForm';
 import HomePage from './components/HomePage';
-import HistoryPage from './components/HistoryPage';
+import HistoryPage from './components/History/HistoryPage';
 import SettingsPage from './components/Settings/SettingsPage';
 import WelcomePage from './components/Auth/WelcomePage';
 import ProfilePage from './components/Profile/ProfilePage';
@@ -11,7 +11,7 @@ import EditProfile from './components/Profile/EditProfile';
 import AboutUs from './components/Settings/AboutUs';
 import UseTerms from './components/Settings/UseTerms';
 import AccountPage from './components/Settings/AccountPage';
-import SymptomsCheck from './components/SymptomsCheck';
+import SymptomsCheck from './components/Search/SymptomsCheck';
 
 
 const RouterComponent = () => {

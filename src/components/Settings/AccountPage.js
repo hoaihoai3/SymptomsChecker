@@ -1,28 +1,42 @@
 import React, { Component } from 'react';
-import { Picker, View, Text, TextInput, ScrollView } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import _ from 'lodash';
-import { Actions } from 'react-native-router-flux';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import firebase from 'firebase';
-import 'firebase/firestore';
-import { CardSection, Input, Button } from '../common';
-import { profileFetch } from '../../actions';
-
-// import ListItem from './ListItem';
+import {
+  profileFetch,
+  profileUpdate,
+  passwordChanged,
+  confirmPasswordChanged,
+  oldPasswordChanged,
+  changePassword
+} from '../../actions';
+import { Button, Spinner } from '../common';
+import Detail from '../Profile/Detail';
+import { ChangePassModal } from './ChangePassModal';
 
 class AccountPage extends Component {
+
+  state = { showModal: false };
 
   componentWillMount() {
     this.props.profileFetch();
   }
 
-  onIconPress() {
-    console.log('Icon Pressed');
+  changePassword() {
+    const { oldPassword, password, confirmPassword } = this.props;
+    this.props.changePassword({ oldPassword, password, confirmPassword });
   }
 
-  addOption() {
-    console.log('Add Option');
+  // onButtonPress() {
+  //   const { email, password } = this.props;
+  //
+  //   this.props.loginUser({ email, password });
+  // }
+  onPasswordChange(text) {
+    this.props.passwordChanged(text);
+  }
+
+  onChangeCurrentPassword(text) {
+
   }
 
   renderSectionHeader(title) {
@@ -33,14 +47,42 @@ class AccountPage extends Component {
     );
   }
 
-  renderButton(text) {
+  renderProfileDetail(item, key) {
+    switch (key) {
+      case 1:
+        return <Detail title='Name: ' item={item} />;
+      case 2:
+        return <Detail title='Email: ' item={item} />;
+      default:
+        return null;
+    }
+  }
+
+  renderModal() {
+    this.setState({ showModal: !this.state.showModal });
+  }
+
+  renderButton() {
+    if (this.props.loading) {
+      return <Spinner size='large' />;
+    }
     return (
-      <View style={styles.buttonStyle}>
-        <Button onPress={this.addOption.bind(this)}>
-          <Icon name="plus" style={{ fontSize: 16 }}> Add {text} </Icon>
-        </Button>
-      </View>
+      <Button onPress={this.changePassword.bind(this)}>
+        Login
+      </Button>
     );
+  }
+
+  renderError() {
+    if (this.props.error) {
+      return (
+        <View style={{ backgroundColor: '#E8F8FF' }}>
+          <Text style={styles.errorTextStyle}>
+            {this.props.error}
+          </Text>
+        </View>
+      );
+    }
   }
 
   render() {
@@ -48,43 +90,33 @@ class AccountPage extends Component {
             containerStyle,
             listStyle,
             cardStyle,
-            itemStyle,
-            itemTitleStyle,
+            buttonContainerStyle
           } = styles;
 
     return (
       <View style={containerStyle}>
         <View style={listStyle}>
           <View style={cardStyle}>
-            {this.renderSectionHeader('Basic Information')}
-            <View style={styles.itemContainerStyle2}>
-              <View style={{ width: 150 }}>
-                <Text style={itemTitleStyle}>Name</Text>
-              </View>
-              <View style={{ marginLeft: 10 }}>
-                <TextInput
-                  style={itemStyle}
-                  value={this.props.name}
-                  autoCapitalize="none"
-                  onChangeText={value => this.props.profileUpdate({ prop: 'name', value })}
-                />
-              </View>
-            </View>
-
-            <View style={styles.itemContainerStyle2}>
-              <View style={{ width: 150 }}>
-                <Text style={itemTitleStyle}>Age</Text>
-              </View>
-              <View style={{ marginLeft: 10 }}>
-                <TextInput
-                  style={itemStyle}
-                  value={this.props.age.toString()}
-                  autoCapitalize="none"
-                  onChangeText={value => this.props.profileUpdate({ prop: 'age', value })}
-                />
-              </View>
-            </View>
+            {this.renderSectionHeader('Account Information')}
+            {this.renderProfileDetail(this.props.name, 1)}
+            {this.renderProfileDetail(this.props.email, 2)}
           </View>
+            <TouchableOpacity style={buttonContainerStyle} onPress={() => this.renderModal}>
+              <Text style={{ color: '#007aff', fontSize: 18 }}>Change Password</Text>
+            </TouchableOpacity>
+            
+            <ChangePassModal
+              visible
+              error={this.renderError}
+              button={this.renderButton}
+              currentPassword={this.props.oldPassword}
+              newPassword={this.props.password}
+              confirmPassword={this.props.confirmPassword}
+              onChangeCurrentPassword={(text) => this.onChangeCurrentPassword(text)}
+              onChangeNewPassword={(text) => this.onChangeNewPassword(text)}
+              onChangeConfirmPassword={(text) => this.onChangeConfirmPassword(text)}
+              onIconPress={() => this.renderModal}
+            />
         </View>
       </View>
     );
@@ -92,7 +124,7 @@ class AccountPage extends Component {
 }
 
 const styles = {
-  containerStyle: {
+ containerStyle: {
     flex: 1,
     backgroundColor: '#E8F8FF'
   },
@@ -102,7 +134,6 @@ const styles = {
     marginTop: 5,
     borderRadius: 3,
     padding: 2,
-    flex: 1,
     borderColor: '#58595A',
     borderBottomWidth: 0
   },
@@ -124,22 +155,9 @@ const styles = {
     height: 45,
     paddingLeft: 20,
     paddingRight: 20,
+    backgroundColor: '#E8F8FF',
     borderBottomWidth: 1,
-    borderColor: '#F3F3F3',
-    borderRadius: 5
-  },
-  itemContainerStyle2: {
-    paddingTop: 10,
-    paddingBottom: 10,
-    height: 45,
-    paddingLeft: 20,
-    paddingRight: 20,
-    borderBottomWidth: 1,
-    borderColor: '#F3F3F3',
-    borderRadius: 5,
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center'
+    borderColor: '#F3F3F3'
   },
   cardStyle: {
     borderWidth: 1,
@@ -152,38 +170,31 @@ const styles = {
     shadowRadius: 5,
     shadowColor: '#000'
   },
-  itemTitleStyle: {
-    fontSize: 17,
-    fontWeight: 'bold'
-  },
-  itemStyle: {
-    fontSize: 16,
-    color: '#58595A'
-  },
-  itemContainerStyle3: {
-    marginLeft: 20
-  },
-  genderCardStyle: {
-    paddingTop: 10,
-    paddingBottom: 10,
-    height: 200,
-    paddingLeft: 20,
-    paddingRight: 20,
+  buttonContainerStyle: {
+    height: 45,
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: '#229AD5',
     backgroundColor: '#FFF',
-    flexDirection: 'column',
-    borderRadius: 5
-  },
-  buttonStyle: {
-    borderTopWidth: 1,
-    borderColor: '#229AD5'
+    marginTop: 10,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 };
 
-const mapStateToProps = ({ profile }) => {
+const mapStateToProps = ({ profile, auth }) => {
   const { name, email } = profile;
+  const { user, oldPassword, password, confirmPassword, error, loading } = auth;
 
-  return { name, email };
+  return { name, email, user, oldPassword, password, confirmPassword, error, loading };
 };
 
-export default connect(mapStateToProps, { profileFetch })(AccountPage);
+export default connect(mapStateToProps, {
+  profileFetch,
+  profileUpdate,
+  passwordChanged,
+  confirmPasswordChanged,
+  oldPasswordChanged,
+  changePassword
+ })(AccountPage);
 // export default ProfilePage;

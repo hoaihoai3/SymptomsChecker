@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
-import { Picker, View, Text, SectionList, ListItem, ScrollView } from 'react-native';
-import _ from 'lodash';
-import { Actions } from 'react-native-router-flux';
+import { View, Text, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import firebase from 'firebase';
 import 'firebase/firestore';
-import { CardSection, Input, Button } from '../common';
 import { profileFetch } from '../../actions';
-import ProfileDetail from './Detail';
-
-// import ListItem from './ListItem';
+import Detail from './Detail';
 
 class ProfilePage extends Component {
 
@@ -28,23 +22,23 @@ class ProfilePage extends Component {
   renderProfileDetail(item, key) {
     switch (key) {
       case 1:
-        return <ProfileDetail title='Name: ' item={item} />;
+        return <Detail title='Name: ' item={item} />;
       case 2:
-        return <ProfileDetail title='Age: ' item={item} />;
+        return <Detail title='Age: ' item={item} />;
       case 3:
-        return <ProfileDetail title='Gender: ' item={item} />;
+        return <Detail title='Gender: ' item={item} />;
       case 4:
-        return <ProfileDetail title='Height: ' item={item} unit='cm' />;
+        return <Detail title='Height: ' item={item} unit='cm' />;
       case 5:
-        return <ProfileDetail title='Weight: ' item={item} unit='kg' />;
+        return <Detail title='Weight: ' item={item} unit='kg' />;
       case 6:
-        return <ProfileDetail title='Blood Group: ' item={item} />;
+        return <Detail title='Blood Group: ' item={item} />;
       case 7:
-        return <ProfileDetail title='Blood Glucose: ' item={item} unit='mmol/L' />;
+        return <Detail title='Blood Glucose: ' item={item} unit='mmol/L' />;
       case 8:
-          return <ProfileDetail title='Blood Pressure: ' item={item} unit='mmHg' />;
+          return <Detail title='Blood Pressure: ' item={item} unit='mmHg' />;
       case 9:
-        return <ProfileDetail item={item} />;
+        return <Detail item={item} />;
       default:
         return null;
     }
@@ -79,14 +73,14 @@ class ProfilePage extends Component {
           <View style={cardStyle}>
             {this.renderSectionHeader('Allergies')}
             {this.props.allergies.map((item, key) => (
-                <ProfileDetail item={item} key={key} />
+                <Detail item={item} key={key} />
             ))}
           </View>
 
           <View style={cardStyle}>
             {this.renderSectionHeader('Medication')}
             {this.props.medication.map((item, key) => (
-                <ProfileDetail item={item} key={key} />
+                <Detail item={item} key={key} />
             ))}
           </View>
 
@@ -95,7 +89,7 @@ class ProfilePage extends Component {
             {this.renderSectionHeader('History')}
 
             {this.props.history.map((item, key) => (
-                <ProfileDetail item={item} key={key} />
+                <Detail item={item} key={key} />
             ))}
 
           </View>
@@ -164,4 +158,3 @@ const mapStateToProps = ({ profile }) => {
 };
 
 export default connect(mapStateToProps, { profileFetch })(ProfilePage);
-// export default ProfilePage;

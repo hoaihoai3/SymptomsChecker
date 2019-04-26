@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const ProfileDetail = ({ title, item, unit, iconName, onIconPress }) => {
+const Detail = ({ title, item, unit, iconName, onIconPress }) => {
   const {
     itemStyle,
     itemTitleStyle,
@@ -48,7 +48,7 @@ const styles = {
   iconContainerStyle: {
     alignSelf: 'flex-end',
     justifyContent: 'center',
-    paddingTop: 2
+    paddingTop: 4
   }
 };
-export default ProfileDetail;
+export default Detail;

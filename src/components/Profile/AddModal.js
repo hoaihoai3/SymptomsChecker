@@ -36,6 +36,7 @@ const AddModal = ({ title, placeholder, value, visible, onButtonPress, onChangeT
               value={value}
               onChangeText={onChangeText}
               autoCapitalize="none"
+              autoCorrect={false}
             />
           </View>
         </View>

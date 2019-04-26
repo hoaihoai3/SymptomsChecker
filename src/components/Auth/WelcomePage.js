@@ -38,6 +38,8 @@ class WelcomePage extends Component {
           </TouchableOpacity>
         </View>
 
+        <View style={{ marginBottom: 10 }} />
+
         <View style={styles.buttonContainerStyle}>
           <TouchableOpacity style={styles.buttonStyle} onPress={this.goToSignUp.bind(this)}>
               <Text style={styles.buttonTextStyle}>Sign Up</Text>
@@ -84,7 +86,7 @@ const styles = {
     marginTop: 5,
     padding: 10,
     width: 300,
-    height: 50,
+    height: 60,
     borderWidth: 1,
     borderRadius: 30,
     borderColor: '#229AD5',

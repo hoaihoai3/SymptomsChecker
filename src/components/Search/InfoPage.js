@@ -21,10 +21,10 @@ class InfoPage extends Component {
   // );
   // }
 
-  render(){
+  render() {
     return (
-
-    )
+      <View />
+    );
   }
 }
 

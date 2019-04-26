@@ -12,6 +12,7 @@ import AboutUs from './components/Settings/AboutUs';
 import UseTerms from './components/Settings/UseTerms';
 import AccountPage from './components/Settings/AccountPage';
 import SymptomsCheck from './components/Search/SymptomsCheck';
+import InfoPage from './components/Search/InfoPage';
 
 
 const RouterComponent = () => {
@@ -44,6 +45,7 @@ const RouterComponent = () => {
           <Scene key="about" component={AboutUs} title="About Us" />
           <Scene key="useTerms" component={UseTerms} title="Terms of Use" />
           <Scene key="check" component={SymptomsCheck} title="Symptom Checker" />
+          <Scene key="info" component={InfoPage} title= "Info" />
         </Scene>
       </Scene>
     </Router>

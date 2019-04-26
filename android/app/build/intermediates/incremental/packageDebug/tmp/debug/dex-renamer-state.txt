@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #Fri Apr 26 22:59:53 ICT 2019
+=======
+#Wed Apr 24 10:21:11 ICT 2019
+>>>>>>> master
 base.0=C\:\\Work\\sepm\\SymptomsChecker\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 path.0=classes.dex
 renamed.0=classes.dex

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Text, TouchableOpacity, FlatList, View, Button } from 'react-native';
-import Firebase from '../Firebase';
-import { Header, Spinner }  from '../common';
+import Firebase from './Firebase';
+import { Header, Spinner }  from './common';
+import { Actions } from 'react-native-router-flux';
 import Autocomplete from 'react-native-autocomplete-input';
 import elasticlunr from '../../libraries/elasticlunr';
 import moment from '../../libraries/moment';
@@ -130,7 +131,7 @@ async function countData(inputArray,db){
 var selected = []
 
 class SymptomsCheck extends Component {
-  state = { symptoms: [], query: '', loading: false, results: [], selectedResult: '', placeholder: 'Enter a symptom you are having'}
+  state = { symptoms: [], query: '', loading: false, results: [], selectedDisease: '', placeholder: 'Enter a symptom you are having'}
 
   removeItem(index) {
     this.setState({
@@ -179,7 +180,7 @@ async queryItems(inputArray){
   renderFlatList(){
     if (!_.isEmpty(this.state.results)) {
       return (
-        <View style={{height: "45%"}}>
+        <View style={{height: "60%"}}>
         <FlatList
         style={styles.list}
         data={this.state.results}
@@ -189,7 +190,16 @@ async queryItems(inputArray){
               <Text style={styles.listItem}>
                {item.disease + ":  " + item.score}
               </Text>
-              <Button style={{flex: 1}} title="more info" onPress={() => this.setState({selectedResult: item.disease})} />
+              <Button style={{flex: 1}} title="more info" onPress={ () => {
+                  console.log(globalResults)
+                  console.log(item)
+                  console.log(index)
+                  console.log(globalResults.find(x => x.name === item.disease))
+                  this.state.selectedDisease = globalResults.find(x => x.name === item.disease)
+                  Actions.info({disease: this.state.selectedDisease })
+                }
+              }
+                   />
             </View>
             <View style={styles.hr} />
           </View>}

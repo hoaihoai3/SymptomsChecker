@@ -23,6 +23,18 @@ class SettingsPage extends Component {
     this.setState({ showModal: false });
   }
 
+  renderError() {
+    if (this.props.error) {
+      return (
+        <View style={{ backgroundColor: '#E8F8FF' }}>
+          <Text style={styles.errorTextStyle}>
+            {this.props.error}
+          </Text>
+        </View>
+      );
+    }
+  }
+
   render() {
     return (
 
@@ -53,16 +65,18 @@ class SettingsPage extends Component {
           </View>
         </View>
 
+        {this.renderError()}
+
         <View
         style={
           [styles.buttonContainerStyle,
-             { borderRadius: 30, marginTop: 40, alignItems: 'center' }]}
+             { borderRadius: 30, marginTop: 40, alignItems: 'center', height: 45 }]}
         >
           <TouchableOpacity
           style={styles.logOutButtonStyle}
           onPress={() => this.setState({ showModal: !this.state.showModal })}
           >
-            <Text style={[styles.iconStyle, { color: '#DC143C' }]}>  Log Out</Text>
+            <Text style={[styles.iconStyle, { color: '#DC143C' }]}>Log Out</Text>
           </TouchableOpacity>
 
           <Confirm
@@ -112,7 +126,6 @@ const styles = {
     flex: 1,
     marginRight: 10,
     paddingLeft: 20,
-    // alignItems: 'center',
     justifyContent: 'center',
     width: 300,
     height: 50
@@ -122,18 +135,22 @@ const styles = {
     color: '#58595A'
   },
   logOutButtonStyle: {
-    width: 200,
-    height: 50,
+    width: 150,
+    height: 40,
     alignItems: 'center',
-    justifyContent: 'center',
-
+    justifyContent: 'center'
+  },
+  errorTextStyle: {
+    fontSize: 16,
+    alignSelf: 'center',
+    color: 'red'
   }
 };
 
 const mapStateToProps = ({ auth }) => {
-  const { user } = auth;
+  const { user, error } = auth;
 
-  return { user };
+  return { user, error };
 };
 
 export default connect(mapStateToProps, { logOutUser })(SettingsPage);

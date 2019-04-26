@@ -108,7 +108,7 @@ const styles = {
     marginTop: 30,
     padding: 10,
     width: 300,
-    height: 50,
+    height: 60,
     borderWidth: 1,
     borderRadius: 30,
     borderColor: '#229AD5',

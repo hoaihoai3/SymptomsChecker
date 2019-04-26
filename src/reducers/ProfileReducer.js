@@ -38,10 +38,9 @@ export default (state = INITIAL_STATE, action) => {
         history: action.payload.history,
        };
       case PROFILE_SAVE_SUCCESS:
-        return null;
+        return { ...state };
       case PROFILE_UPDATE:
         return { ...state, [action.payload.prop]: action.payload.value };
-
     default:
       return state;
   }

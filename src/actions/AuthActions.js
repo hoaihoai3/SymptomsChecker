@@ -14,6 +14,9 @@ import { EMAIL_CHANGED,
          GO_TO_SIGNUP,
          LOG_OUT_USER_SUCCESS,
          LOG_OUT_USER_FAIL,
+         REQUEST_CHANGE_PASSWORD,
+         CLOSE_REQUEST_CHANGE_PASSWORD,
+         CHANGE_PASSWORD,
          CHANGE_PASSWORD_FAIL,
          CHANGE_PASSWORD_SUCCESS
        } from './types';
@@ -137,19 +140,35 @@ export const changePasswordFail = (dispatch) => {
   });
 };
 
+export const requestChangePassword = () => {
+  return {
+    type: REQUEST_CHANGE_PASSWORD
+  };
+};
+
+export const closeRequestChangePassword = () => {
+  return {
+    type: CLOSE_REQUEST_CHANGE_PASSWORD
+  };
+};
+
 export const changePassword = (currentPassword, newPassword, confirmPassword) => {
   if (confirmPassword === newPassword) {
     return (dispatch) => {
-    this.reauthenticate(currentPassword).then(() => {
+      dispatch({ type: CHANGE_PASSWORD });
       const { currentUser } = firebase.auth();
-      currentUser.updatePassword(newPassword)
-      .then(() => {
-        console.log('Password updated!');
-        dispatch({ type: CHANGE_PASSWORD_SUCCESS });
-      })
-      .catch(() => { changePasswordFail(dispatch); });
-    })
-    .catch(() => { changePasswordFail(dispatch); });
+      const cred = firebase.auth.EmailAuthProvider.credential(currentUser.email, currentPassword);
+      currentUser.reauthenticateAndRetrieveDataWithCredential(cred)
+        .then(() => {
+          currentUser.updatePassword(newPassword)
+          .then(() => {
+            dispatch({ type: CHANGE_PASSWORD_SUCCESS, payload: currentUser });
+          })
+          .catch(() => { changePasswordFail(dispatch); });
+        })
+      .catch(() => {
+        changePasswordFail(dispatch);
+      });
     };
   }
   return (dispatch) => {

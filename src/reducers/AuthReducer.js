@@ -12,6 +12,9 @@ import { EMAIL_CHANGED,
          LOG_OUT_USER_SUCCESS,
          LOG_OUT_USER_FAIL,
          OLD_PASS_CHANGED,
+         REQUEST_CHANGE_PASSWORD,
+         CLOSE_REQUEST_CHANGE_PASSWORD,
+         CHANGE_PASSWORD,
          CHANGE_PASSWORD_FAIL,
          CHANGE_PASSWORD_SUCCESS
 
@@ -24,7 +27,8 @@ const INITIAL_STATE = {
    oldPassword: '',
    user: null,
    error: '',
-   loading: false
+   loading: false,
+   modalVisibility: false
  };
 
 export default (state = INITIAL_STATE, action) => {
@@ -58,10 +62,16 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, error: 'Failed to Log Out' };
     case OLD_PASS_CHANGED:
       return { ...state, oldPassword: action.payload };
-    case CHANGE_PASSWORD_SUCCESS:
+    case REQUEST_CHANGE_PASSWORD:
+      return { ...state, modalVisibility: true };
+    case CLOSE_REQUEST_CHANGE_PASSWORD:
       return { ...state, ...INITIAL_STATE };
+    case CHANGE_PASSWORD:
+      return { ...state, loading: true, error: '' };
+    case CHANGE_PASSWORD_SUCCESS:
+      return { ...state, ...INITIAL_STATE, user: action.payload, modalVisibility: false };
     case CHANGE_PASSWORD_FAIL:
-      return { ...state, error: 'Failed to change password', loading: false };
+      return { ...state, ...INITIAL_STATE, error: 'Failed to change password', modalVisibility: true };
     default:
       return state;
   }

@@ -30,7 +30,7 @@ class InfoPage extends Component {
         <View style={styles.sectionContainerStyle}>
           <Text style={styles.subtitleStyle}>Symptoms</Text>
           { this.props.symptoms.map((item, key) =>
-            (<Text key={key} style={styles.textStyle}>{item}</Text>)) }
+            (<Text key={key} style={styles.textStyle}>{key + 1}. {item}</Text>)) }
         </View>
 
         <View style={styles.sectionContainerStyle}>

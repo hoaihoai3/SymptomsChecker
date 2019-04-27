@@ -1,9 +1,20 @@
 import React from 'react';
 import { Text, View, Modal } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { CardSection, Input } from '../common/Button';
+import { CardSection, Input } from '../common';
 
-const PasswordModal = ({ visible }) => {
+const PasswordModal = ({
+   visible,
+   onIconPress,
+   onChangeCurrentPassword,
+   onChangeNewPassword,
+   onChangeConfirmPassword,
+   currentPassword,
+   newPassword,
+   confirmPassword,
+   error,
+   button
+    }) => {
   return (
     <Modal
       visible={visible}
@@ -12,9 +23,63 @@ const PasswordModal = ({ visible }) => {
       onRequestClose={() => {}}
     >
       <View style={styles.containerStyle}>
-        <Text>
-          Hey
-        </Text>
+        <View style={styles.cardStyle}>
+          <View style={styles.sectionHeaderContainerStyle}>
+            <View style={{ alignItems: 'center' }}>
+              <Text style={styles.sectionHeaderStyle}>Change Pasword</Text>
+            </View>
+            <View style={styles.iconContainerStyle}>
+              <Icon name="remove" style={{ color: '#FFF', fontSize: 22 }} onPress={onIconPress} />
+            </View>
+          </View>
+
+
+          <View style={styles.itemContainerStyle}>
+            <CardSection>
+              <Input
+                secureTextEntry
+                autoCapitalize="none"
+                placeholder='Current Password'
+                maxLength={20}
+                onChangeText={onChangeCurrentPassword}
+                value={currentPassword}
+              />
+            </CardSection>
+
+            <CardSection>
+              <Input
+                secureTextEntry
+                autoCapitalize="none"
+                placeholder='New Password'
+                maxLength={20}
+                onChangeText={onChangeNewPassword}
+                value={newPassword}
+              />
+            </CardSection>
+
+            <CardSection>
+              <Input
+                secureTextEntry
+                autoCapitalize="none"
+                placeholder='Confirm New Password'
+                maxLength={20}
+                onChangeText={onChangeConfirmPassword}
+                value={confirmPassword}
+              />
+            </CardSection>
+
+            <View style={{ marginBottom: 20 }} />
+
+            <View>
+              {error}
+            </View>
+
+            <CardSection>
+              {button}
+            </CardSection>
+          </View>
+
+        </View>
       </View>
     </Modal>
 
@@ -29,16 +94,6 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     padding: 5
-  },
-  listStyle: {
-    backgroundColor: '#E8F8FF',
-    marginLeft: 2,
-    marginRight: 2,
-    borderRadius: 5,
-    padding: 2,
-    flex: 1,
-    borderColor: '#58595A',
-    borderBottomWidth: 0
   },
   sectionHeaderStyle: {
     fontSize: 22,
@@ -57,7 +112,7 @@ const styles = {
   itemContainerStyle: {
     paddingTop: 10,
     paddingBottom: 10,
-    height: 60,
+    height: 'auto',
     paddingLeft: 20,
     paddingRight: 20,
     borderBottomWidth: 1,
@@ -67,7 +122,7 @@ const styles = {
   cardStyle: {
     marginLeft: 2,
     marginRight: 2,
-    height: 165,
+    height: 'auto',
     width: '100%',
     borderWidth: 1,
     borderRadius: 5,

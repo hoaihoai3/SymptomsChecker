@@ -7,27 +7,20 @@ import {
   passwordChanged,
   confirmPasswordChanged,
   oldPasswordChanged,
-  changePassword
+  changePassword,
+  requestChangePassword,
+  closeRequestChangePassword
 } from '../../actions';
 import { Button, Spinner } from '../common';
 import Detail from '../Profile/Detail';
-import { ChangePassModal } from './ChangePassModal';
 import { PasswordModal } from './PasswordModal';
 
 class AccountPage extends Component {
-
-  state = { showModal: false };
 
   componentWillMount() {
     this.props.profileFetch();
   }
 
-
-  // onButtonPress() {
-  //   const { email, password } = this.props;
-  //
-  //   this.props.loginUser({ email, password });
-  // }
   onChangeCurrentPassword(text) {
     this.props.oldPasswordChanged(text);
   }
@@ -42,15 +35,16 @@ class AccountPage extends Component {
 
   changePassword() {
     const { oldPassword, password, confirmPassword } = this.props;
-    this.props.changePassword({ oldPassword, password, confirmPassword });
+
+    this.props.changePassword(oldPassword, password, confirmPassword);
   }
 
-  renderSectionHeader(title) {
-    return (
-      <View style={styles.sectionHeaderContainerStyle}>
-        <Text style={styles.sectionHeaderStyle}>{title}</Text>
-      </View>
-    );
+  unRenderModal() {
+    this.props.closeRequestChangePassword();
+  }
+
+  renderModal() {
+    this.props.requestChangePassword();
   }
 
   renderProfileDetail(item, key) {
@@ -64,8 +58,12 @@ class AccountPage extends Component {
     }
   }
 
-  renderModal() {
-    this.setState({ showModal: !this.state.showModal });
+  renderSectionHeader(title) {
+    return (
+      <View style={styles.sectionHeaderContainerStyle}>
+        <Text style={styles.sectionHeaderStyle}>{title}</Text>
+      </View>
+    );
   }
 
   renderButton() {
@@ -74,7 +72,7 @@ class AccountPage extends Component {
     }
     return (
       <Button onPress={this.changePassword.bind(this)}>
-        Login
+        Change Password
       </Button>
     );
   }
@@ -82,7 +80,7 @@ class AccountPage extends Component {
   renderError() {
     if (this.props.error) {
       return (
-        <View style={{ backgroundColor: '#E8F8FF' }}>
+        <View style={{ backgroundColor: '#FFF' }}>
           <Text style={styles.errorTextStyle}>
             {this.props.error}
           </Text>
@@ -112,7 +110,16 @@ class AccountPage extends Component {
             </TouchableOpacity>
 
             <PasswordModal
-              visible={this.state.showModal}
+              visible={this.props.modalVisibility}
+              onIconPress={() => this.unRenderModal()}
+              onChangeCurrentPassword={(text) => this.onChangeCurrentPassword(text)}
+              onChangeNewPassword={(text) => this.onChangeNewPassword(text)}
+              onChangeConfirmPassword={(text) => this.onChangeConfirmPassword(text)}
+              currentPassword={this.props.oldPassword}
+              newPassword={this.props.password}
+              confirmPassword={this.props.confirmPassword}
+              button={this.renderButton()}
+              error={this.renderError()}
             />
         </View>
       </View>
@@ -189,14 +196,19 @@ const styles = {
     marginTop: 10,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+    errorTextStyle: {
+      fontSize: 15,
+      alignSelf: 'center',
+      color: 'red'
   }
 };
 
 const mapStateToProps = ({ profile, auth }) => {
   const { name, email } = profile;
-  const { user, oldPassword, password, confirmPassword, error, loading } = auth;
+  const { user, oldPassword, password, confirmPassword, error, loading, modalVisibility } = auth;
 
-  return { name, email, user, oldPassword, password, confirmPassword, error, loading };
+  return { name, email, user, oldPassword, password, confirmPassword, error, loading, modalVisibility };
 };
 
 export default connect(mapStateToProps, {
@@ -205,6 +217,8 @@ export default connect(mapStateToProps, {
   passwordChanged,
   confirmPasswordChanged,
   oldPasswordChanged,
-  changePassword
+  changePassword,
+  requestChangePassword,
+  closeRequestChangePassword
  })(AccountPage);
 // export default ProfilePage;

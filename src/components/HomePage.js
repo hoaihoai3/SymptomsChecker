@@ -12,10 +12,6 @@ class Homepage extends Component {
     this.props.profileFetch();
   }
 
-  componentDidMount() {
-
-  }
-
   onSearch() {
     console.log('Searching symptoms');
   }

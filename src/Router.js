@@ -45,7 +45,7 @@ const RouterComponent = () => {
           <Scene key="about" component={AboutUs} title="About Us" />
           <Scene key="useTerms" component={UseTerms} title="Terms of Use" />
           <Scene key="check" component={SymptomsCheck} title="Symptom Checker" />
-          <Scene key="info" component={InfoPage} title= "Info" />
+          <Scene key="info" component={InfoPage} title="Disease Information" />
         </Scene>
       </Scene>
     </Router>

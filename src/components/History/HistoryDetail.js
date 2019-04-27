@@ -1,22 +1,30 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-const HistoryDetail = ({ title, item, customStyle }) => {
+const HistoryDetail = ({ title, item, customStyle, iconName, onPress }) => {
   const {
     itemStyle,
     itemTitleStyle,
     itemContainerStyle,
+    iconContainerStyle
    } = styles;
 
   return (
-    <View style={[itemContainerStyle, customStyle]}>
-      <View>
-        <View>
+    <TouchableOpacity style={[itemContainerStyle, customStyle]} onPress={onPress}>
+      <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+
+        <View style={{ width: '90%' }}>
           <Text style={itemTitleStyle}>{title} </Text>
           <Text style={itemStyle}>{item}</Text>
         </View>
+
+        <View style={iconContainerStyle}>
+          <Icon style={{ fontSize: 17 }} name={iconName} />
+        </View>
+
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -41,10 +49,11 @@ const styles = {
     color: '#58595A'
   },
   iconContainerStyle: {
-    alignSelf: 'flex-end',
+    alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 3,
-    fontSize: 18
+    fontSize: 18,
+    width: '10%'
   }
 };
 export default HistoryDetail;

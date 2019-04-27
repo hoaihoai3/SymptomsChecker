@@ -170,6 +170,7 @@ class EditProfile extends Component {
                 selectedValue={this.props.gender}
                 onValueChange={value => this.props.profileUpdate({ prop: 'gender', value })}
               >
+                <Picker.Item label="" value="" />
                 <Picker.Item label="Male" value="Male" />
                 <Picker.Item label="Female" value="Female" />
               </Picker>

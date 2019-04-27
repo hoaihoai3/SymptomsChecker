@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 import { historyFetch } from '../../actions';
 import HistoryDetail from './HistoryDetail';
 
@@ -52,6 +53,8 @@ class HistoryPage extends Component {
                key={key2}
                title={result.disease}
                item={result.score}
+               iconName='angle-right'
+               onPress={() => Actions.info({ disease: result.id })}
               />
             ))}
             <View style={{ marginBottom: 10 }} />

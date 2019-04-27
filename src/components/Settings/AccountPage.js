@@ -12,6 +12,7 @@ import {
 import { Button, Spinner } from '../common';
 import Detail from '../Profile/Detail';
 import { ChangePassModal } from './ChangePassModal';
+import { PasswordModal } from './PasswordModal';
 
 class AccountPage extends Component {
 
@@ -21,22 +22,27 @@ class AccountPage extends Component {
     this.props.profileFetch();
   }
 
-  changePassword() {
-    const { oldPassword, password, confirmPassword } = this.props;
-    this.props.changePassword({ oldPassword, password, confirmPassword });
-  }
 
   // onButtonPress() {
   //   const { email, password } = this.props;
   //
   //   this.props.loginUser({ email, password });
   // }
-  onPasswordChange(text) {
+  onChangeCurrentPassword(text) {
+    this.props.oldPasswordChanged(text);
+  }
+
+  onChangeNewPassword(text) {
     this.props.passwordChanged(text);
   }
 
-  onChangeCurrentPassword(text) {
+  onChangeConfirmPassword(text) {
+    this.props.confirmPasswordChanged(text);
+  }
 
+  changePassword() {
+    const { oldPassword, password, confirmPassword } = this.props;
+    this.props.changePassword({ oldPassword, password, confirmPassword });
   }
 
   renderSectionHeader(title) {
@@ -101,27 +107,31 @@ class AccountPage extends Component {
             {this.renderProfileDetail(this.props.name, 1)}
             {this.renderProfileDetail(this.props.email, 2)}
           </View>
-            <TouchableOpacity style={buttonContainerStyle} onPress={() => this.renderModal}>
+            <TouchableOpacity style={buttonContainerStyle} onPress={() => this.renderModal()}>
               <Text style={{ color: '#007aff', fontSize: 18 }}>Change Password</Text>
             </TouchableOpacity>
-            
-            <ChangePassModal
-              visible
-              error={this.renderError}
-              button={this.renderButton}
-              currentPassword={this.props.oldPassword}
-              newPassword={this.props.password}
-              confirmPassword={this.props.confirmPassword}
-              onChangeCurrentPassword={(text) => this.onChangeCurrentPassword(text)}
-              onChangeNewPassword={(text) => this.onChangeNewPassword(text)}
-              onChangeConfirmPassword={(text) => this.onChangeConfirmPassword(text)}
-              onIconPress={() => this.renderModal}
+
+            <PasswordModal
+              visible={this.state.showModal}
             />
         </View>
       </View>
     );
   }
 }
+
+// <ChangePassModal
+//   visible={this.state.showModal}
+//   error={this.renderError}
+//   button={this.renderButton}
+//   currentPassword={this.props.oldPassword}
+//   newPassword={this.props.password}
+//   confirmPassword={this.props.confirmPassword}
+//   onChangeCurrentPassword={(text) => this.onChangeCurrentPassword(text)}
+//   onChangeNewPassword={(text) => this.onChangeNewPassword(text)}
+//   onChangeConfirmPassword={(text) => this.onChangeConfirmPassword(text)}
+//   onIconPress={() => this.renderModal}
+// />
 
 const styles = {
  containerStyle: {

@@ -9,6 +9,18 @@ class InfoPage extends Component {
     this.props.diseaseFetch(this.props.disease);
   }
 
+  // render() {
+  //   return (
+  //   <View>
+  //     <Text>{this.props.disease.id}</Text>
+  //     <Text>{this.props.disease.overview}</Text>
+  //     { this.props.disease.symptoms.map((item, key) => (<Text key={key} >{item}</Text>)) }
+  //     <Text>{this.props.disease.suggestion}</Text>
+  //     <Text>{this.props.disease.worseBy}</Text>
+  //   </View>
+  // );
+  // }
+
   render() {
     return (
     <ScrollView style={styles.screenStyle}>

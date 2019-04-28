@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Work\\sepm\\SymptomsChecker\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-fr-rCA\\values-fr-rCA.xml",
+            "outputFile": "C:\\Work\\sepm\\new\\symptomschecker\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-fr-rCA\\values-fr-rCA.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Hoai\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\613ed38d11a41f9a7085b1d75b56e5bd\\res\\values-fr-rCA\\values-fr-rCA.xml",

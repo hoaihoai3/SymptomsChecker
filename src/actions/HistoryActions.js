@@ -13,7 +13,7 @@ import {
       .orderBy('time', 'desc')
       .limit(5)
       .get()
-      .then((querySnapshot) => querySnapshot.forEach((doc) => 
+      .then((querySnapshot) => querySnapshot.forEach((doc) =>
       historyTempList.push(doc.data())
     ));
     dispatch({ type: HISTORY_FETCH_SUCCESS, payload: historyTempList });

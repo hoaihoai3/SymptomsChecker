@@ -8,20 +8,7 @@ import Autocomplete from 'react-native-autocomplete-input';
 import elasticlunr from '../../libraries/elasticlunr';
 import moment from '../../libraries/moment';
 
-// const firebase = require('firebase');
-
 var globalResults = []
-
-// if (!firebase.apps.length) { // if firebase is not loaded
-//   firebase.initializeApp({
-//   apiKey: 'AIzaSyAsoGSE6jisMEVawlpGCsmrd93gHCgOKmI',
-//   authDomain: 'symptoms-checker-a898b.firebaseapp.com',
-//   databaseURL: 'https://symptoms-checker-a898b.firebaseio.com',
-//   projectId: 'symptoms-checker-a898b',
-//   storageBucket: 'symptoms-checker-a898b.appspot.com',
-//   messagingSenderId: '183194827166'
-//   });
-// }
 
 const _ = require('underscore');
 require('firebase/firestore');
@@ -127,6 +114,8 @@ async function countData(inputArray,db){
     // return a.scoreInNumber - b.scoreInNumber
     return b.scoreInNumber - a.scoreInNumber
   })
+
+  if (sorted.length > 5) {sorted.length = 5}
 
   return sorted
 }

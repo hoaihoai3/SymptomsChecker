@@ -9,6 +9,7 @@ import elasticlunr from '../../libraries/elasticlunr';
 import moment from '../../libraries/moment';
 
 var globalResults = []
+var selected = []
 
 const _ = require('underscore');
 require('firebase/firestore');
@@ -119,8 +120,6 @@ async function countData(inputArray,db){
 
   return sorted
 }
-
-var selected = []
 
 class SymptomsCheck extends Component {
   state = { symptoms: [], query: '', loading: false, results: [], selectedDisease: '', placeholder: 'Enter a symptom you are having'}

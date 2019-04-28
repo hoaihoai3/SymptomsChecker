@@ -123,10 +123,10 @@ const styles = {
   }
 };
 
-const mapStateToProps = ({ profile }) => {
+const mapStateToProps = ({ profile, auth }) => {
   const { name } = profile;
-
-  return { name };
+  const { user } = auth;
+  return { name, user };
 };
 
 export default connect(mapStateToProps, { profileFetch })(Homepage);

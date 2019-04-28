@@ -177,6 +177,7 @@ const styles = {
   titleStyle: {
     fontSize: 30,
     fontWeight: 'bold',
+    color: '#229AD5'
   },
   textViewStyle: {
     marginTop: 15,
@@ -190,7 +191,8 @@ const styles = {
   subTitleStyle: {
     fontSize: 23,
     textDecorationLine: 'underline',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: '#24A3E2',
   }
 };
 export default UseTerms;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, TouchableOpacity, FlatList, View, Button } from 'react-native';
 import Firebase from '../Firebase';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { Header, Spinner }  from '../common';
 import { Actions } from 'react-native-router-flux';
 import Autocomplete from 'react-native-autocomplete-input';
@@ -168,14 +169,24 @@ async queryItems(inputArray){
     }
     if (!_.isEmpty(this.state.results)){
       return (
-        <Button title="Search again" onPress={() => {
-            this.setState({results: [], placeholder: "Enter a symptom you are having"})
-            selected = this.state.symptoms
-          }}></Button>
+        <TouchableOpacity
+          style={styles.buttonStyle}
+          onPress={() => {
+              this.setState({results: [], placeholder: "Enter a symptom you are having"})
+              selected = this.state.symptoms
+            }}
+        >
+        <Text style={{ alignSelf: 'center', color: '#007aff', fontSize: 18 }}>Search Again</Text>
+        </TouchableOpacity>
       )
     }
     return(
-      <Button title="Search" onPress={() => this.queryItems(this.state.symptoms, db)}></Button>
+      <TouchableOpacity
+        style={styles.buttonStyle}
+        onPress={() => this.queryItems(this.state.symptoms, db)}
+      >
+        <Text style={{ alignSelf: 'center', color: '#007aff', fontSize: 18 }}>Search</Text>
+      </TouchableOpacity>
     )
   }
 
@@ -187,26 +198,25 @@ async queryItems(inputArray){
         style={styles.list}
         data={this.state.results}
         renderItem={({ item, index }) =>
-        <View>
+        <TouchableOpacity
+        onPress={ () => {
+           console.log(this.state.selectedDisease = globalResults.find(x => x.name === item.disease).id2)
+           Actions.info({disease:this.state.selectedDisease})
+           }
+         }
+        >
             <View style={styles.listItemCont}>
-              <Text style={styles.listItem}>
-               {item.disease + ":  " + item.score}
-              </Text>
-              <Button style={{flex: 1}} title="more info" onPress={ () => {
-                  // console.log(globalResults)
-                  // console.log(item)
-                  // console.log(index)
-                  // console.log(globalResults.find(x => x.name === item.disease))
-                  // this.state.selectedDisease = globalResults.find(x => x.name === item.disease)
-                  // Actions.info({disease: this.state.selectedDisease })
-                  console.log(this.state.selectedDisease = globalResults.find(x => x.name === item.disease).id2)
-                  Actions.info({disease:this.state.selectedDisease})
-                }
-              }
-                   />
+              <View style={styles.textContainerStyle}>
+                <Text style={styles.listItem}>
+                 {item.disease + ":  " + item.score}
+                </Text>
+              </View>
+              <View style={styles.iconContainerStyle}>
+                <Icon style={styles.listItem} name="angle-right" />
+              </View>
             </View>
             <View style={styles.hr} />
-          </View>}
+          </TouchableOpacity>}
         keyExtractor={(item, index) => index.toString()}
         />
         </View>
@@ -220,10 +230,15 @@ async queryItems(inputArray){
       renderItem={({ item, index }) =>
       <View>
           <View style={styles.listItemCont}>
-            <Text style={styles.listItem}>
-             {item}
-            </Text>
-            <Button title="X" onPress={() => this.removeItem(index)}/>
+            <View style={styles.textContainerStyle}>
+              <Text style={styles.listItem}>
+               {item}
+              </Text>
+            </View>
+
+            <View style={styles.iconContainerStyle}>
+              <Icon style={styles.listItem} name="remove" onPress={() => this.removeItem(index)} />
+            </View>
           </View>
           <View style={styles.hr} />
         </View>}
@@ -238,8 +253,7 @@ async queryItems(inputArray){
     const data = autoSuggestion(db, query)
     return (
       <View style={styles.container}>
-        <Header headerText='Check Symptoms'/>
-        <View style={{flex: 2}}>
+        <View style={{ flex: 2, marginTop: 20, height: '20%' }}>
           <Autocomplete
           placeholder= {this.state.placeholder}
           autoCorrect= {false}
@@ -269,7 +283,7 @@ async queryItems(inputArray){
         />
       </View>
       {this.renderFlatList()}
-  <View style={{height:"5%"}}>
+  <View style={{height:"7%"}}>
     {this.renderButton()}
   </View>
 </View>
@@ -280,13 +294,13 @@ async queryItems(inputArray){
 const styles = {
   container: {
     flex: 1,
-    justifyContent: "flex-start",
-    alignItems: "stretch",
-    backgroundColor: "#F5FCFF",
-    padding: 1
+    justifyContent: "center",
+    flexDirection: 'column',
+    backgroundColor: "#E8F8FF",
+    padding: 10,
+    paddingBottom: 20
   },
   autoCompleteContainer:{
-    flex: 1,
     zIndex: 1
   },
   autoCompleteList: {
@@ -300,7 +314,7 @@ const styles = {
   },
   list: {
     width: "100%",
-    marginTop: 0
+    alignSelf: 'center'
   },
   listItem: {
     paddingTop: 2,
@@ -309,15 +323,40 @@ const styles = {
     flex: 4
   },
   hr: {
-    height: 1,
-    backgroundColor: "blue"
+    marginTop: 2,
+    marginBottom: 2,
+    borderBottomWidth: 1,
+    borderColor: "#C8C9CA"
   },
   listItemCont: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    marginTop: 5,
+    marginBottom: 5
+  },
+  iconContainerStyle: {
+    width: '10%',
+    paddingLeft: 5,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  textContainerStyle: {
+    width: '90%',
+    paddingRight: 5,
+    justifyContent: 'center'
+  },
+  buttonStyle: {
+    backgroundColor: '#FFF',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderRadius: 30,
+    borderColor: '#007aff',
+    width: '80%',
+    alignSelf: 'center',
+    height: '100%'
   }
 };
-
 
 export default SymptomsCheck;

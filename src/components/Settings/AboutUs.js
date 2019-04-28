@@ -66,6 +66,7 @@ const styles = {
   titleStyle: {
     fontSize: 30,
     fontWeight: 'bold',
+    color: '#229AD5'
   },
   textViewStyle: {
     marginTop: 15,

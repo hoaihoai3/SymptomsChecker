@@ -6,16 +6,22 @@ import { historyFetch } from '../../actions';
 import HistoryDetail from './HistoryDetail';
 
 class HistoryPage extends Component {
-
-  state = { dataSource: [] };
+  state = { list: [] };
 
   componentWillMount() {
     this.props.historyFetch();
   }
 
-  renderSectionHeader(title, key) {
+  componentDidMount() {
+    // let temp = [];
+    // temp = this.props.historyList;
+    // this.setState({ list: temp });
+    // console.log(this.props.historyList);
+    // console.log(temp);
+  }
+  renderSectionHeader(title) {
     return (
-      <View style={styles.sectionHeaderContainerStyle} key={key}>
+      <View style={styles.sectionHeaderContainerStyle}>
         <Text style={styles.sectionHeaderStyle}>{title}</Text>
       </View>
     );
@@ -28,10 +34,10 @@ class HistoryPage extends Component {
     return <Text key={key}>{item}, </Text>;
   }
 
-  renderItem({ item, key }) {
+  renderHistory({ item, key }) {
     return (
         <View style={styles.cardStyle} key={key}>
-          {this.renderSectionHeader(item.time, key)}
+          {this.renderSectionHeader(item.time)}
           <View style={{ borderBottomWidth: 1, borderColor: '#DCDCDC' }}>
             <View style={{ paddingLeft: 15, marginTop: 10 }}>
               <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Symptoms</Text>
@@ -71,13 +77,12 @@ class HistoryPage extends Component {
 
     return (
       <View style={containerStyle}>
-
-      <FlatList
-        style={listStyle}
-        data={this.props.historyList}
-        renderItem={(item) => this.renderItem(item, item.key)}
-      />
-
+        <FlatList
+          style={listStyle}
+          data={this.props.historyList}
+          renderItem={(item) => this.renderHistory(item, item.key)}
+          keyExtractor={(item, index) => index.toString()}
+        />
       </View>
     );
   }
@@ -90,6 +95,7 @@ const styles = {
   },
   listStyle: {
     backgroundColor: '#E8F8FF',
+    height: 'auto',
     margin: 2,
     marginTop: 5,
     borderRadius: 3,

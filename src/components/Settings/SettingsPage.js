@@ -76,7 +76,9 @@ class SettingsPage extends Component {
           style={styles.logOutButtonStyle}
           onPress={() => this.setState({ showModal: !this.state.showModal })}
           >
-            <Text style={[styles.iconStyle, { color: '#DC143C' }]}>Log Out</Text>
+            <Icon name="sign-out" style={[styles.iconStyle, { color: '#007aff' }]}>
+              <Text> Log Out</Text>
+            </Icon>
           </TouchableOpacity>
 
           <Confirm

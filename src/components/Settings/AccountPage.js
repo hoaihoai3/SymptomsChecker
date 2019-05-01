@@ -195,7 +195,9 @@ const styles = {
     backgroundColor: '#FFF',
     marginTop: 10,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignSelf: 'center',
+    width: '80%'
   },
     errorTextStyle: {
       fontSize: 15,

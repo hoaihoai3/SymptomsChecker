@@ -116,7 +116,7 @@ async function countData(inputArray,db){
     return b.scoreInNumber - a.scoreInNumber
   })
 
-  if (sorted.length > 5) {sorted.length = 5}
+  if (sorted.length > 6) {sorted.length = 6}
 
   return sorted
 }
@@ -181,7 +181,7 @@ async queryItems(inputArray){
   renderFlatList(){
     if (!_.isEmpty(this.state.results)) {
       return (
-        <View style={{height: "60%"}}>
+        <View style={{height: "55%"}}>
         <FlatList
         style={styles.list}
         data={this.state.results}
@@ -271,7 +271,7 @@ async queryItems(inputArray){
         />
       </View>
       {this.renderFlatList()}
-  <View style={{height:"7%"}}>
+  <View style={{height:"7%", marginTop: 20}}>
     {this.renderButton()}
   </View>
 </View>

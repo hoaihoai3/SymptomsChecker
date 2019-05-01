@@ -48,6 +48,7 @@ const AboutUs = () => {
           feel better about your health and that of your family.
         </Text>
       </View>
+      <View style={{ marginBottom: 10 }} />
     </ScrollView>
   );
 };

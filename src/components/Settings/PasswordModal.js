@@ -26,7 +26,7 @@ const PasswordModal = ({
         <View style={styles.cardStyle}>
           <View style={styles.sectionHeaderContainerStyle}>
             <View style={{ alignItems: 'center' }}>
-              <Text style={styles.sectionHeaderStyle}>Change Pasword</Text>
+              <Text style={styles.sectionHeaderStyle}>Change Password</Text>
             </View>
             <View style={styles.iconContainerStyle}>
               <Icon name="remove" style={{ color: '#FFF', fontSize: 22 }} onPress={onIconPress} />
